@@ -3,8 +3,8 @@ Contributors: jp-secure
 Donate link: -
 Tags: security, waf
 Requires at least: 3.9
-Tested up to: 3.9.1
-Stable tag: 1.0.0
+Tested up to: 4.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,5 +84,7 @@ http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
 
+= 1.0.1 =
+* Tested with WP 4.0.
 = 1.0.0 =
-* 2014-10-24 First release
+* First release.
