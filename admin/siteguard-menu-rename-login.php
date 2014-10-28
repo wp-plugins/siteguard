@@ -30,6 +30,20 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 				echo '</strong></p></div>';
 				$error = true;
 			}
+			if ( '1' == $_POST[ $opt_name_feature ] ) {
+				$incompatible_plugin = $rename_login->get_active_incompatible_plugin( );
+				if ( NULL != $incompatible_plugin ) {
+					echo '<div class="error settings-error"><p><strong>';
+					echo esc_html__( 'This function and Plugin "', 'siteguard' ) . $incompatible_plugin . esc_html__( '" cannot be used at the same time.', 'siteguard' );
+					echo '</strong></p></div>';
+					$error = true;
+					$config->set( $opt_name_feature, '0' );
+					$config->update( );
+					$rename_login->feature_off( );
+					$opt_val_feature = '0';
+					$opt_val_rename_login_path = stripslashes( $_POST[ $opt_name_rename_login_path ] );
+				}
+			}
 			if ( 1 != preg_match( '/^[a-zA-Z0-9_-]+$/', $_POST[ $opt_name_rename_login_path ] ) ) {
 				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'It is only an alphanumeric character, a hyphen, and an underbar that can be used for New Login Path.', 'siteguard' );

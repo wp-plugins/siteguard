@@ -6,6 +6,13 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	function __construct( ) {
 		global $config;
 		if ( '1' == $config->get( 'renamelogin_enable' ) ) {
+			if ( NULL != $this->get_active_incompatible_plugin( ) ) {
+				$config->set( 'renamelogin_enable', '0' );
+				$config->update( );
+				$this->feature_off( );
+				return;
+			}
+			 
 			$this->add_filter( );
 		}
 	}
@@ -15,7 +22,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	function init( ) {
 		global $config;
 		$config->set( 'renamelogin_path', 'login_' . sprintf( '%05d', mt_rand( 1, 99999 ) ) );
-		if ( $this->check_module( 'rewrite' ) ) {
+		if ( $this->check_module( 'rewrite' ) && NULL == $this->get_active_incompatible_plugin( ) ) {
 			$config->set( 'renamelogin_enable', '1' );
 			$config->update( );
 			$this->feature_on( );
@@ -23,6 +30,17 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 			$config->set( 'renamelogin_enable', '0' );
 			$config->update( );
 		}
+	}
+	function get_active_incompatible_plugin( ) {
+		$incompatible_plugins = array( 
+			'WordPress HTTPS (SSL)' => 'wordpress-https/wordpress-https.php',
+		 );
+		foreach ( $incompatible_plugins as $name => $path ) {
+			if ( $this->is_active_plugin( $path ) ) {
+				return $name;
+			}
+		}
+		return NULL;
 	}
 	function add_filter( ) {
 		add_filter( 'login_init',       array( $this, 'handler_login_init' ),  10, 2 );
@@ -74,7 +92,9 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	}
 	function flush_rules( ) {
 		global $wp_rewrite;
-		$wp_rewrite->flush_rules( );
+		if ( is_object( $wp_rewrite ) ) {
+			$wp_rewrite->flush_rules( );
+		}
 	}
 	function insert_rewrite_rules( $rules ) {
 		global $config;
@@ -117,8 +137,10 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		$htaccess->update_settings( $mark, $data );
 	}
 	function feature_off( ) {
-
-		flush_rewrite_rules( );
+		global $wp_rewrite;
+		if ( is_object( $wp_rewrite ) ) {
+			flush_rewrite_rules( );
+		}
 
 		$mark = SiteGuard_RenameLogin::get_mark( );
 		SiteGuard_Htaccess::clear_settings( $mark );

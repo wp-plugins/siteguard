@@ -7,10 +7,10 @@ Author: JP-Secure
 Author URI: http://www.jp-secure.com/eng/
 Text Domain: siteguard
 Domain Path: /languages/
-Version: 1.0.1
+Version: 1.0.2
 */
 
-/*  Copyright 2014 JP-Secure Inc (email : support@jp-secure.com)
+/*  Copyright 2014 JP-Secure Inc
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
