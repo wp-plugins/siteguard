@@ -4,18 +4,16 @@ Donate link: -
 Tags: security, waf
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Only installing SiteGuard WP Plugin on WordPress, its security can be improved.
 SiteGurad WP Plugin is the plugin specialized for the protection against the attack to the management page and login.
-It also have the function to create the exclude rule for WAF (SiteGuard Lite, to use it, WAF should be installed on the Web server.)
 
 == Description ==
 
-Simply install the SiteGuard-WP-Plugin, WordPress security is improved. 
-This plug-in is a security plug-in that specializes in the login attack of brute force, such as protection and management capabilities.
+Simply install the SiteGuard WP Plugin, WordPress security is improved. 
+This plugin is a security plugin that specializes in the login attack of brute force, such as protection and management capabilities.
 
 Notes
 
@@ -83,8 +81,10 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
-
+= 1.0.2 =
+* Fix a minor html escape leakage
+* Reduced the problem of affinity with other plugin [WordPress HTTPS (SSL)]
 = 1.0.1 =
-* Tested with WP 4.0.
+* Supported with WP 4.0
 = 1.0.0 =
-* First release.
+* First release

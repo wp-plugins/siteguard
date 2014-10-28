@@ -75,7 +75,7 @@ class SiteGuard_Menu_Dashboard extends SiteGuard_Base {
 		<form name="form1" method="post" action="">
 		<?php echo '<h3>' . esc_html__( 'Login history', 'siteguard' ) . "</h3>\n"; ?>
 		<?php $this->wp_list_table->display( ) ?>
-		<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>
+		<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ) ?>">
 		</form>
 		</div>
 		<?php

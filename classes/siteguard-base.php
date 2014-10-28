@@ -44,6 +44,16 @@ class SiteGuard_Base {
 		#}
 		#return $default;
 	}
+	function is_active_plugin( $plugin ) {
+		if ( function_exists('is_plugin_active') ) {
+			return is_plugin_active( $plugin );
+		} else {
+			return in_array(
+				$plugin,
+				get_option('active_plugins')
+			);
+		}
+	}
 }
 
 ?>

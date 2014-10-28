@@ -36,6 +36,12 @@ msgid "To use this function, “mod_rewrite” should be loaded on Apache."
 msgstr ""
 "この機能を使用するには、mod_rewriteがサーバーにロードされている必要があります。"
 
+msgid "This function and Plugin \""
+msgstr "この機能を、プラグイン \""
+
+msgid "\" cannot be used at the same time."
+msgstr "\" と同時に使用することはできません。"
+
 #: admin/siteguard-menu-admin-filter.php:42
 #: admin/siteguard-menu-captcha.php:38
 #: admin/siteguard-menu-disable-pingback.php:17
@@ -585,7 +591,7 @@ msgid ""
 "SiteGurad WP Plugin is the plugin specialized for the protection against the attack to the management page and login. "
 "It also have the function to create the exclude rule for WAF (SiteGuard Lite, to use it, WAF should be installed on the Web server.)"
 msgstr ""
-"SiteGuard WP Pluginは、WordPressにインストールするだけで、セキュリティを向上することができます。"
+"SiteGuard WP Pluginは、WordPressにインストールするだけで、セキュリティを向上させることができます。"
 "SiteGurad WP Pluginは、管理ページとログインに関する攻撃からの防御に特化したセキュリティプラグインです。"
 "WAF ( SiteGuard Lite )の除外ルールを作成する機能もあります。( 使用するにはWAFがWebサーバーにインストールされている必要があります )"
 

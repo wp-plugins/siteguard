@@ -32,7 +32,7 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 		if ( '' == $current_user->user_login ) {
 			return;
 		}
-		$this->add_operation( SITEGUARD_LOIGN_SUCCESS, $current_user->user_login );
+		$this->add_operation( SITEGUARD_LOGIN_SUCCESS, $current_user->user_login );
 	}
 	function handler_wp_login_failed( $username ) {
 		global $loginlock;
