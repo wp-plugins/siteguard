@@ -1,22 +1,24 @@
 <?php
 
+function siteguard_error_log( $message ) {
+	$logfile = SITEGUARD_PATH . 'error.log';
+	$f = @fopen( $logfile, 'a+' );
+	if ( false != $f ) {
+		fwrite( $f, date_i18n( 'Y/m/d H:i:s:' ) . $message . "\n" );
+		fclose( $f );
+	}
+}
+
+function siteguard_error_dump( $title, $obj ) {
+	ob_start();
+	var_dump( $obj );
+	$msg = ob_get_contents( );
+	ob_end_clean( );
+	siteguard_error_log( "$title: $msg" );
+}
+
 class SiteGuard_Base {
 	function __construct() {
-	}
-	function error_log( $message ) {
-		$logfile = SITEGUARD_PATH . 'error.log';
-		$f = @fopen( $logfile, 'a+' );
-		if ( false != $f ) {
-			fwrite( $f, date_i18n( 'Y/m/d H:i:s:' ) . $message . "\n" );
-			fclose( $f );
-		}
-	}
-	function error_dump( $title, $obj ) {
-		ob_start();
-		var_dump( $obj );
-		$msg = ob_get_contents( );
-		ob_end_clean( );
-		$this->error_log( "$title: $msg" );
 	}
 	function is_switch_value( $value ) {
 		if ( '0' == $value || '1' == $value ) {

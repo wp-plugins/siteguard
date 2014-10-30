@@ -7,7 +7,7 @@ Author: JP-Secure
 Author URI: http://www.jp-secure.com/eng/
 Text Domain: siteguard
 Domain Path: /languages/
-Version: 1.0.2
+Version: 1.0.3
 */
 
 /*  Copyright 2014 JP-Secure Inc
@@ -29,6 +29,8 @@ Version: 1.0.2
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+define( 'SITEGUARD_VERSION', '1.0.3' );
 
 define( 'SITEGUARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SITEGUARD_URL_PATH', plugin_dir_url( __FILE__ ) );
@@ -73,7 +75,6 @@ $waf_exclude_rule  = new SiteGuard_WAF_Exclude_Rule( );
 function siteguard_activate( ) {
 	global $admin_filter, $rename_login, $login_history, $captcha, $loginlock, $pingback, $waf_exclude_rule;
 
-	flush_rewrite_rules();
 	$admin_filter->init();
 	$rename_login->init();
 	$login_history->init();
@@ -86,7 +87,6 @@ register_activation_hook( __FILE__, 'siteguard_activate' );
 
 function siteguard_deactivate( ) {
 	global $config;
-	flush_rewrite_rules();
 	$config->set( 'siteguard_meta_version', '0.0' );
 	$config->update( );
 	SiteGuard_RenameLogin::feature_off( );
@@ -95,11 +95,13 @@ function siteguard_deactivate( ) {
 }
 register_deactivation_hook( __FILE__, 'siteguard_deactivate' );
 
+
 class SiteGuard extends SiteGuard_Base {
 	var $menu_init;
 	function __construct( ) {
 		if ( is_admin( ) )  {
 			$this->menu_init = new SiteGuard_Menu_Init( );
+			add_action( 'admin_init', array( $this, 'upgrade' ) );
 		}
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 	}
@@ -109,6 +111,24 @@ class SiteGuard extends SiteGuard_Base {
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
+	}
+	function upgrade( ) {
+		global $config, $rename_login;
+		$upgrade_ok  = true;
+		$old_version = $config->get( 'version' );
+		if ( '' == $old_version ) {
+			$old_version = '0.0.0';
+		}
+		if ( version_compare( $old_version, '1.0.3' ) < 0 ) {
+			if ( '1' == $config->get( 'renamelogin_enable' ) ) {
+				if ( true != $rename_login->feature_on( ) ) {
+					$upgrade_ok = false;
+				}
+			}
+		}
+		if ( $upgrade_ok && $old_version != SITEGUARD_VERSION ) {
+			$config->set( 'version', SITEGUARD_VERSION );
+		}
 	}
 }
 $siteguard = new SiteGuard;

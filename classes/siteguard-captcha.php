@@ -1,6 +1,6 @@
 <?php
 
-include_once( SITEGUARD_PATH . 'really-simple-captcha/really-simple-captcha.php' );
+include_once( SITEGUARD_PATH . 'really-simple-captcha/siteguard-really-simple-captcha.php' );
 
 class SiteGuard_CAPTCHA extends SiteGuard_Base {
 	var $captcha;
@@ -10,7 +10,7 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 	function __construct( ) {
 		global $config;
 		if ( '1' == $config->get( 'captcha_enable' ) ) {
-			$this->captcha = new ReallySimpleCaptcha( );
+			$this->captcha = new SiteGuardReallySimpleCaptcha( );
 			$this->captcha->bg = array( 255, 255, 255 );
 
 			add_filter( 'shake_error_codes', array( $this, 'handler_shake_error_codes' ) );
