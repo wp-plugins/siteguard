@@ -90,12 +90,6 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		$result = $this->convert_url( $link );
 		return $result;
 	}
-	function flush_rules( ) {
-		global $wp_rewrite;
-		if ( is_object( $wp_rewrite ) ) {
-			$wp_rewrite->flush_rules( );
-		}
-	}
 	function insert_rewrite_rules( $rules ) {
 		global $config;
 		$custom_login_url = $config->get( 'renamelogin_path' );
@@ -126,24 +120,14 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		return $htaccess_str;
 	}
 	function feature_on( ) {
-		global $htaccess, $config;
-
-		$custom_login_url = $config->get( 'renamelogin_path' );
-		add_rewrite_rule( $custom_login_url.'(.*)$', 'wp-login.php$1', 'top' );
-		$this->flush_rules( );
-
+		global $htaccess;
 		$data = $this->update_settings( );
 		$mark = $this->get_mark( );
-		$htaccess->update_settings( $mark, $data );
+		return $htaccess->update_settings( $mark, $data );
 	}
 	function feature_off( ) {
-		global $wp_rewrite;
-		if ( is_object( $wp_rewrite ) ) {
-			flush_rewrite_rules( );
-		}
-
 		$mark = SiteGuard_RenameLogin::get_mark( );
-		SiteGuard_Htaccess::clear_settings( $mark );
+		return SiteGuard_Htaccess::clear_settings( $mark );
 	}
 	function set_404( ) {
 		global $wp_query;
