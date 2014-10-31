@@ -4,7 +4,7 @@ Donate link: -
 Tags: security, waf
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,8 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
+= 1.0.4 =
+* Fix bug that fails to update .htaccess, if there is no WordPress settings in .htaccess
 = 1.0.3 =
 * Fix a problem that "Rename Login" does not work, if you change Permalink settings
 * Fix the collision of class name of Really Simple CAPTCHA

@@ -176,8 +176,8 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 		// Write empty WordPress Settings
 		} else if ( false == $flag_wp ) {
 			fwrite( $fw, "\n", 1 );
-			fwrite( $fw, $wp_mark_start . "\n", strlen ( $wp_wp_mark_start ) + 1 );
-			fwrite( $fw, $wp_mark_end   . "\n", strlen ( $wp_wp_mark_end )   + 1 );
+			fwrite( $fw, $mark_wp_start . "\n", strlen ( $mark_wp_start ) + 1 );
+			fwrite( $fw, $mark_wp_end   . "\n", strlen ( $mark_wp_end )   + 1 );
 			fwrite( $fw, "\n", 1 );
 		}
 		fclose( $fr );
