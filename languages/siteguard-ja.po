@@ -42,6 +42,23 @@ msgstr "この機能を、プラグイン \""
 msgid "\" cannot be used at the same time."
 msgstr "\" と同時に使用することはできません。"
 
+msgid "Login page URL was changed."
+msgstr ""
+"ログインページURLが変更されました。"
+
+msgid " Please bookmark "
+msgstr "　"
+
+msgid "new login URL"
+msgstr "新しいログインページURL"
+
+msgid ". Setting change is "
+msgstr ""
+"をブックマークしてください. 設定変更は"
+
+msgid "here"
+msgstr "こちら"
+
 #: admin/siteguard-menu-admin-filter.php:42
 #: admin/siteguard-menu-captcha.php:38
 #: admin/siteguard-menu-disable-pingback.php:17

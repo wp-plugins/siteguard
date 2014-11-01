@@ -7,7 +7,7 @@ Author: JP-Secure
 Author URI: http://www.jp-secure.com/eng/
 Text Domain: siteguard
 Domain Path: /languages/
-Version: 1.0.4
+Version: 1.0.5
 */
 
 /*  Copyright 2014 JP-Secure Inc
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SITEGUARD_VERSION', '1.0.4' );
+define( 'SITEGUARD_VERSION', '1.0.5' );
 
 define( 'SITEGUARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SITEGUARD_URL_PATH', plugin_dir_url( __FILE__ ) );
@@ -72,6 +72,7 @@ $captcha           = new SiteGuard_CAPTCHA( );
 $pingback          = new SiteGuard_Disable_Pingback( );
 $waf_exclude_rule  = new SiteGuard_WAF_Exclude_Rule( );
 
+
 function siteguard_activate( ) {
 	global $admin_filter, $rename_login, $login_history, $captcha, $loginlock, $pingback, $waf_exclude_rule;
 
@@ -88,6 +89,7 @@ register_activation_hook( __FILE__, 'siteguard_activate' );
 function siteguard_deactivate( ) {
 	global $config;
 	$config->set( 'siteguard_meta_version', '0.0' );
+	$config->set( 'show_admin_notices', '0' );
 	$config->update( );
 	SiteGuard_RenameLogin::feature_off( );
 	SiteGuard_AdminFilter::feature_off( );
@@ -102,6 +104,7 @@ class SiteGuard extends SiteGuard_Base {
 		if ( is_admin( ) )  {
 			$this->menu_init = new SiteGuard_Menu_Init( );
 			add_action( 'admin_init', array( $this, 'upgrade' ) );
+			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 		}
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 	}
@@ -111,6 +114,21 @@ class SiteGuard extends SiteGuard_Base {
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
+	}
+	function admin_notices( ) {
+		global $config;
+		if ( '1' != $config->get( 'show_admin_notices' ) ) {
+			echo '<div class="updated" style="background-color:#719f1d;"><p><span style="border: 4px solid #def1b8;padding: 4px 4px;color:#fff;font-weight:bold;background-color:#038bc3;">';
+			echo esc_html__( 'Login page URL was changed.', 'siteguard' ) . '</span>';
+			echo '<span style="color:#eee;">';
+			echo esc_html__( ' Please bookmark ', 'siteguard' ) . '<a style="color:#fff;text-decoration:underline;" href="' . esc_url( wp_login_url( ) ) . '">';
+			echo esc_html__( 'new login URL', 'siteguard' ) . '</a>';
+			echo esc_html__( '. Setting change is ', 'siteguard' ) . '<a style="color:#fff;text-decoration:underline;" href="' .  esc_url( menu_page_url( 'siteguard_rename_login', false ) ) . '">';
+			echo esc_html__( 'here', 'siteguard' ) . '</a>';
+			echo '.</span></p></div>';
+			$config->set( 'show_admin_notices', '1' );
+			$config->update( );
+		}
 	}
 	function upgrade( ) {
 		global $config, $rename_login;
