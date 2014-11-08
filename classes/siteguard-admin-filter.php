@@ -7,7 +7,7 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		define( 'SITEGUARD_TABLE_LOGIN', 'siteguard_login' );
 		add_action( 'wp_login', array( $this, 'handler_wp_login' ), 1, 2 );
 	}
-	function get_mark( ) {
+	static function get_mark( ) {
 		return SiteGuard_AdminFilter::$htaccess_mark;
 	}
 	function init( ) {
@@ -50,7 +50,7 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		global $wpdb, $config;
 		$htaccess_str = '';
 		$table_name = $wpdb->prefix . SITEGUARD_TABLE_LOGIN;
-		$exclude_path = $config->get( 'admin_filter_exclude_path' );
+		$exclude_paths = preg_split( '/,/', $config->get( 'admin_filter_exclude_path' ) );
 
 		$now_str = current_time( 'mysql' );
 		$now_bin = strtotime( $now_str );
@@ -82,7 +82,10 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		$htaccess_str .= "<IfModule mod_rewrite.c>\n";
 		$htaccess_str .= "    RewriteEngine on\n";
 		$htaccess_str .= "    RewriteBase $base\n";
-		$htaccess_str .= "    RewriteRule ^404-siteguard - [L] /\n";
+		$htaccess_str .= "    RewriteRule ^404-siteguard - [L]\n";
+		foreach( $exclude_paths as $path ) {
+			$htaccess_str .= '    RewriteRule ^wp-admin/' . trim( $path ) . " - [L]\n";
+		}
 		$htaccess_str .= '    RewriteCond %{REMOTE_ADDR} !(127.0.0.1|'. $_SERVER['SERVER_ADDR'] . ")\n";
 		$results = $wpdb->get_col( "SELECT ip_address FROM $table_name;" );
 		if ( $results ) {
@@ -90,7 +93,7 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 				$htaccess_str .= '    RewriteCond %{REMOTE_ADDR} !' . $ip . "\n";
 			}
 		}
-		$htaccess_str .= '    RewriteRule wp-admin/(?!'.$this->cvt_exclude( $exclude_path ).")(.*) 404-siteguard [L]\n";
+		$htaccess_str .= "    RewriteRule ^wp-admin 404-siteguard [L]\n";
 		$htaccess_str .= "</IfModule>\n";
 
 		$wpdb->query( 'COMMIT' );
@@ -103,7 +106,7 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		$data = $this->update_settings( $ip_addres );
 		$htaccess->update_settings( $mark, $data );
 	}
-	function feature_off( ) {
+	static function feature_off( ) {
 		$mark = SiteGuard_AdminFilter::get_mark( );
 		SiteGuard_Htaccess::clear_settings( $mark );
 	}

@@ -7,7 +7,7 @@ Author: JP-Secure
 Author URI: http://www.jp-secure.com/eng/
 Text Domain: siteguard
 Domain Path: /languages/
-Version: 1.0.5
+Version: 1.0.6
 */
 
 /*  Copyright 2014 JP-Secure Inc
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SITEGUARD_VERSION', '1.0.5' );
+define( 'SITEGUARD_VERSION', '1.0.6' );
 
 define( 'SITEGUARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SITEGUARD_URL_PATH', plugin_dir_url( __FILE__ ) );
@@ -117,7 +117,7 @@ class SiteGuard extends SiteGuard_Base {
 	}
 	function admin_notices( ) {
 		global $config;
-		if ( '1' != $config->get( 'show_admin_notices' ) ) {
+		if ( '1' != $config->get( 'show_admin_notices' ) && '1' == $config->get( 'renamelogin_enable' ) ) {
 			echo '<div class="updated" style="background-color:#719f1d;"><p><span style="border: 4px solid #def1b8;padding: 4px 4px;color:#fff;font-weight:bold;background-color:#038bc3;">';
 			echo esc_html__( 'Login page URL was changed.', 'siteguard' ) . '</span>';
 			echo '<span style="color:#eee;">';
@@ -131,7 +131,7 @@ class SiteGuard extends SiteGuard_Base {
 		}
 	}
 	function upgrade( ) {
-		global $config, $rename_login;
+		global $config, $rename_login, $admin_filter;
 		$upgrade_ok  = true;
 		$old_version = $config->get( 'version' );
 		if ( '' == $old_version ) {
@@ -140,6 +140,13 @@ class SiteGuard extends SiteGuard_Base {
 		if ( version_compare( $old_version, '1.0.3' ) < 0 ) {
 			if ( '1' == $config->get( 'renamelogin_enable' ) ) {
 				if ( true != $rename_login->feature_on( ) ) {
+					$upgrade_ok = false;
+				}
+			}
+		}
+		if ( version_compare( $old_version, '1.0.6' ) < 0 ) {
+			if ( '1' == $config->get( 'admin_filter_enable' ) ) {
+				if ( true != $admin_filter->feature_on( $_SERVER['REMOTE_ADDR'] ) ) {
 					$upgrade_ok = false;
 				}
 			}

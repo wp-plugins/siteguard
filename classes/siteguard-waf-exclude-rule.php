@@ -7,7 +7,7 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 
 	function __construct( ) {
 	}
-	function get_mark( ) {
+	static function get_mark( ) {
 		return SiteGuard_WAF_Exclude_Rule::$htaccess_mark;
 	}
 	function init( ) {
@@ -224,7 +224,7 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 		$mark = $this->get_mark( );
 		$htaccess->update_settings( $mark, $data );
 	}
-	function feature_off( ) {
+	static function feature_off( ) {
 		$mark = SiteGuard_WAF_Exclude_Rule::get_mark( );
 		SiteGuard_Htaccess::clear_settings( $mark );
 	}

@@ -35,7 +35,7 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 
 		return true;
 	}
-	function clear_settings( $mark ) {
+	static function clear_settings( $mark ) {
 		if ( ! SiteGuard_Htaccess::make_tmp_dir( ) ) {
 			return false;
 		}
@@ -140,7 +140,7 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 
 			if ( false !== strpos( $line, $mark_start ) ) {
 				fwrite( $fw, $line , strlen( $line ) );
-				fwrite( $fw, $data, strlen( $data ) );
+				fwrite( $fw, $data,  strlen( $data ) );
 				$flag_write = true;
 				$flag_through  = false;
 				continue;
@@ -162,7 +162,7 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 			}
 		}
 		if ( false == $flag_write ) {
-			fwrite( $fw, SiteGuard_Htaccess::$htaccess_mark_start . "\n", strlen( SiteGuard_Htaccess::$htaccess_mark_start ) + 1 );
+			fwrite( $fw, "\n" . SiteGuard_Htaccess::$htaccess_mark_start . "\n", strlen( SiteGuard_Htaccess::$htaccess_mark_start ) + 2 );
 			fwrite( $fw, $mark_start . "\n", strlen( $mark_start ) + 1 );
 			fwrite( $fw, $data, strlen( $data ) );
 			fwrite( $fw, $mark_end . "\n", strlen( $mark_end ) + 1 );
@@ -171,13 +171,13 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 		// Write saved WordPress Settings
 		if ( '' != $wp_settings ) {
 			fwrite( $fw, "\n", 1 );
-			fwrite( $fw, $wp_settings, strlen ( $wp_settings ) );
+			fwrite( $fw, $wp_settings, strlen( $wp_settings ) );
 			fwrite( $fw, "\n", 1 );
 		// Write empty WordPress Settings
 		} else if ( false == $flag_wp ) {
 			fwrite( $fw, "\n", 1 );
-			fwrite( $fw, $mark_wp_start . "\n", strlen ( $mark_wp_start ) + 1 );
-			fwrite( $fw, $mark_wp_end   . "\n", strlen ( $mark_wp_end )   + 1 );
+			fwrite( $fw, $mark_wp_start . "\n", strlen( $mark_wp_start ) + 1 );
+			fwrite( $fw, $mark_wp_end   . "\n", strlen( $mark_wp_end )   + 1 );
 			fwrite( $fw, "\n", 1 );
 		}
 		fclose( $fr );

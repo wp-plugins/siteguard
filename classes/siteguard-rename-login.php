@@ -16,7 +16,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 			$this->add_filter( );
 		}
 	}
-	function get_mark( ) {
+	static function get_mark( ) {
 		return SiteGuard_RenameLogin::$htaccess_mark;
 	}
 	function init( ) {
@@ -114,7 +114,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		$htaccess_str = "<IfModule mod_rewrite.c>\n";
 		$htaccess_str .= "    RewriteEngine on\n";
 		$htaccess_str .= "    RewriteBase $base\n";
-		$htaccess_str .= "    RewriteRule $custom_login_url(.*)$ wp-login.php$1 [L]\n";
+		$htaccess_str .= "    RewriteRule ^$custom_login_url(.*)$ wp-login.php$1 [L]\n";
 		$htaccess_str .= "</IfModule>\n";
 
 		return $htaccess_str;
@@ -125,7 +125,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		$mark = $this->get_mark( );
 		return $htaccess->update_settings( $mark, $data );
 	}
-	function feature_off( ) {
+	static function feature_off( ) {
 		$mark = SiteGuard_RenameLogin::get_mark( );
 		return SiteGuard_Htaccess::clear_settings( $mark );
 	}
