@@ -51,6 +51,13 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 				$opt_val_rename_login_path = stripslashes( $_POST[ $opt_name_rename_login_path ] );
 				$error = true;
 			}
+			if ( 1 == preg_match( '/^(wp-admin|wp-login$|login$)/', $_POST[ $opt_name_rename_login_path ], $matches ) ) {
+				echo '<div class="error settings-error"><p><strong>';
+				echo esc_html( $matches[0] ) . esc_html__( ' can not be used for New Login Path.', 'siteguard' );
+				echo '</strong></p></div>';
+				$opt_val_rename_login_path = stripslashes( $_POST[ $opt_name_rename_login_path ] );
+				$error = true;
+			}
 			if ( false == $error ) {
 				$opt_val_feature           = $_POST[ $opt_name_feature ];
 				$opt_val_rename_login_path = $_POST[ $opt_name_rename_login_path ];

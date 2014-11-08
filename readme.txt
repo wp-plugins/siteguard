@@ -4,7 +4,7 @@ Donate link: -
 Tags: security, waf
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ This plugin is a security plugin that specializes in the login attack of brute f
 Notes
 
 * It does not support the multisite function of WordPress.
-* It only supports Apache 2.x for Web servers.
+* It only supports Apache 1.3, 2.x for Web servers.
 * To use the CAPTCHA function, the expansion library “mbstring” and “gd” should be installed on php.
 * To use the management page filter function and login page change function, “mod_rewrite” should be loaded on Apache.
 * To use the WAF Tuning Support, WAF ( SiteGuard Lite ) should be installed on Apache. 
@@ -81,6 +81,11 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
+= 1.0.6 =
+* Supported with Apache 1.3
+* Fix garbling of CAPTCHA by environment
+* Fix input check of Rename login path
+* Fix some other bugs
 = 1.0.5 =
 * Add display a warning about changing the login page URL, when activate the plugin
 = 1.0.4 =

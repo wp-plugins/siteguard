@@ -188,11 +188,17 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 
 			$x = $this->base[0] + mt_rand( -2, 2 );
 
+			$gd_info = gd_info( );
 			for ( $i = 0; $i < mb_strlen( $word ); $i++ ) {
 				$font = $this->fonts[array_rand( $this->fonts )];
 				$font = $this->normalize_path( $font );
+				if ( $gd_info['JIS-mapped Japanese Font Support'] ) {
+					$char = mb_convert_encoding( mb_substr( $word, $i, 1 ), 'SJIS', 'UTF-8' );
+				} else {
+					$char = mb_substr( $word, $i, 1 );
+				}
 				imagettftext( $im, $this->font_size, mt_rand( -12, 12 ), $x,
-					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, mb_substr( $word, $i, 1 ) );
+					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $char );
 				$x += $this->font_char_width;
 			}
 

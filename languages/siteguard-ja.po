@@ -336,6 +336,10 @@ msgid ""
 msgstr ""
 "英数字、ハイフン、アンダーバーが使用できます。"
 
+msgid " can not be used for New Login Path."
+msgstr ""
+"は、変更後のログインページ名に指定できません。"
+
 #: admin/siteguard-menu-rename-login.php:57
 msgid ""
 "It is the function to decrease the vulnerability against an illegal login "
