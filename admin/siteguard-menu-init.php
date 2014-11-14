@@ -18,6 +18,7 @@ class SiteGuard_Menu_INIT extends SiteGuard_Base {
 		add_submenu_page( 'siteguard', esc_html__( 'CAPTCHA', 'siteguard' ),                  esc_html__( 'CAPTCHA', 'siteguard' ),                  'manage_options', 'siteguard_captcha',            array( $this, 'menu_captcha' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'Same Login Error Message', 'siteguard' ), esc_html__( 'Same Login Error Message', 'siteguard' ), 'manage_options', 'siteguard_same_error',         array( $this, 'menu_same_error' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'Login Lock', 'siteguard' ),               esc_html__( 'Login Lock', 'siteguard' ),               'manage_options', 'siteguard_login_lock',         array( $this, 'menu_login_lock' ) );
+		add_submenu_page( 'siteguard', esc_html__( 'Login Alert', 'siteguard' ),              esc_html__( 'Login Alert', 'siteguard' ),              'manage_options', 'siteguard_login_alert',        array( $this, 'menu_login_alert' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'Fail once', 'siteguard' ),                esc_html__( 'Fail once', 'siteguard' ),                'manage_options', 'siteguard_fail_once',          array( $this, 'menu_fail_once' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'Disable Pingback', 'siteguard' ),         esc_html__( 'Disable Pingback', 'siteguard' ),         'manage_options', 'siteguard_disable_pingback',   array( $this, 'menu_disable_pingback' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'WAF Tuning Support', 'siteguard' ),       esc_html__( 'WAF Tuning Support', 'siteguard' ),       'manage_options', 'siteguard_waf_tuning_support', array( $this, 'menu_waf_tuning_support' ) );
@@ -46,6 +47,10 @@ class SiteGuard_Menu_INIT extends SiteGuard_Base {
 	function menu_login_lock( ) {
 		include( 'siteguard-menu-login-lock.php' );
 		$login_lock_menu = new SiteGuard_Menu_Login_Lock( );
+	}
+	function menu_login_alert( ) {
+		include( 'siteguard-menu-login-alert.php' );
+		$login_alert_menu = new SiteGuard_Menu_Login_Alert( );
 	}
 	function menu_fail_once( ) {
 		include( 'siteguard-menu-fail-once.php' );

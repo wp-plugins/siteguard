@@ -17,9 +17,10 @@ class SiteGuard_Menu_Dashboard extends SiteGuard_Base {
 		$captcha_enable          = $config->get( 'captcha_enable' );
 		$same_error_enable       = $config->get( 'same_login_error' );
 		$loginlock_enable        = $config->get( 'loginlock_enable' );
+		$loginalert_enable       = $config->get( 'loginalert_enable' );
 		$fail_once_enable        = $config->get( 'loginlock_fail_once' );
 		$disable_pingback_enable = $config->get( 'disable_pingback_enable' );
-		$waf_exclude_rule_enable     = $config->get( 'waf_exclude_rule_enable' );
+		$waf_exclude_rule_enable = $config->get( 'waf_exclude_rule_enable' );
 		echo '<div class="wrap">';
 		echo '<img src="' . $img_path . 'sg_wp_plugin_logo_40.png" alt="SiteGuard Logo" />';
 		echo '<h2>' . esc_html__( 'Dashboard', 'siteguard' ) . "</h2>\n";
@@ -54,6 +55,11 @@ class SiteGuard_Menu_Dashboard extends SiteGuard_Base {
 		<img src=<?php echo '"' . $img_path . ( $loginlock_enable == '1' ? 'yes.png" alt="yes"' : 'yes_glay.png" alt="no"' ) ?>>
 		<a href="?page=siteguard_login_lock"><?php esc_html_e( 'Login Lock', 'siteguard' ) ?></a></th>
 		<td><?php esc_html_e( 'The connection source which repeats login failure is being locked within a certain period.', 'siteguard' ) ?></td>
+		</tr><tr>
+		<th scope="row">
+		<img src=<?php echo '"' . $img_path . ( $loginalert_enable == '1' ? 'yes.png" alt="yes"' : 'yes_glay.png" alt="no"' ) ?>>
+		<a href="?page=siteguard_login_alert"><?php esc_html_e( 'Login Alert', 'siteguard' ) ?></a></th>
+		<td><?php esc_html_e( 'E-mail notifies that there was login.', 'siteguard' ) ?></td>
 		</tr><tr>
 		<th scope="row">
 		<img src=<?php echo '"' . $img_path . ( $fail_once_enable == '1' ? 'yes.png" alt="yes"' : 'yes_glay.png" alt="no"' ) ?>>

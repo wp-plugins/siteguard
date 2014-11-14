@@ -7,7 +7,7 @@ Author: JP-Secure
 Author URI: http://www.jp-secure.com/eng/
 Text Domain: siteguard
 Domain Path: /languages/
-Version: 1.0.6
+Version: 1.1.0
 */
 
 /*  Copyright 2014 JP-Secure Inc
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SITEGUARD_VERSION', '1.0.6' );
+define( 'SITEGUARD_VERSION', '1.1.0' );
 
 define( 'SITEGUARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SITEGUARD_URL_PATH', plugin_dir_url( __FILE__ ) );
@@ -47,6 +47,7 @@ require_once( 'classes/siteguard-admin-filter.php' );
 require_once( 'classes/siteguard-rename-login.php' );
 require_once( 'classes/siteguard-login-history.php' );
 require_once( 'classes/siteguard-login-lock.php' );
+require_once( 'classes/siteguard-login-alert.php' );
 require_once( 'classes/siteguard-captcha.php' );
 require_once( 'classes/siteguard-disable-pingback.php' );
 require_once( 'classes/siteguard-waf-exclude-rule.php' );
@@ -57,6 +58,7 @@ global $config;
 global $admin_filter;
 global $rename_login;
 global $loginlock;
+global $loginalert;
 global $captcha;
 global $login_history;
 global $pingback;
@@ -67,6 +69,7 @@ $config            = new SiteGuard_Config( );
 $admin_filter      = new SiteGuard_AdminFilter( );
 $rename_login      = new SiteGuard_RenameLogin( );
 $loginlock         = new SiteGuard_LoginLock( );
+$loginalert        = new SiteGuard_LoginAlert( );
 $login_history     = new SiteGuard_LoginHistory( );
 $captcha           = new SiteGuard_CAPTCHA( );
 $pingback          = new SiteGuard_Disable_Pingback( );
@@ -74,13 +77,20 @@ $waf_exclude_rule  = new SiteGuard_WAF_Exclude_Rule( );
 
 
 function siteguard_activate( ) {
-	global $admin_filter, $rename_login, $login_history, $captcha, $loginlock, $pingback, $waf_exclude_rule;
+	global $admin_filter, $rename_login, $login_history, $captcha, $loginlock, $loginalert, $pingback, $waf_exclude_rule;
+
+	load_plugin_textdomain(
+		'siteguard',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
 
 	$admin_filter->init();
 	$rename_login->init();
 	$login_history->init();
 	$captcha->init();
 	$loginlock->init();
+	$loginalert->init();
 	$pingback->init();
 	$waf_exclude_rule->init();
 }
@@ -116,7 +126,7 @@ class SiteGuard extends SiteGuard_Base {
 		);
 	}
 	function admin_notices( ) {
-		global $config;
+		global $config, $rename_login;
 		if ( '1' != $config->get( 'show_admin_notices' ) && '1' == $config->get( 'renamelogin_enable' ) ) {
 			echo '<div class="updated" style="background-color:#719f1d;"><p><span style="border: 4px solid #def1b8;padding: 4px 4px;color:#fff;font-weight:bold;background-color:#038bc3;">';
 			echo esc_html__( 'Login page URL was changed.', 'siteguard' ) . '</span>';
@@ -128,10 +138,11 @@ class SiteGuard extends SiteGuard_Base {
 			echo '.</span></p></div>';
 			$config->set( 'show_admin_notices', '1' );
 			$config->update( );
+			$rename_login->send_notify( );
 		}
 	}
 	function upgrade( ) {
-		global $config, $rename_login, $admin_filter;
+		global $config, $rename_login, $admin_filter, $loginalert;
 		$upgrade_ok  = true;
 		$old_version = $config->get( 'version' );
 		if ( '' == $old_version ) {
@@ -150,6 +161,9 @@ class SiteGuard extends SiteGuard_Base {
 					$upgrade_ok = false;
 				}
 			}
+		}
+		if ( version_compare( $old_version, '1.1.0' ) < 0 ) {
+			$loginalert->init();
 		}
 		if ( $upgrade_ok && $old_version != SITEGUARD_VERSION ) {
 			$config->set( 'version', SITEGUARD_VERSION );
