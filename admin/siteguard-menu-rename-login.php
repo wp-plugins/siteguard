@@ -68,6 +68,7 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 					$rename_login->feature_off( );
 				} else {
 					$rename_login->feature_on( );
+					$rename_login->send_notify( );
 				}
 				?>
 				<div class="updated"><p><strong><?php esc_html_e( 'Options saved.', 'siteguard' ); ?></strong></p></div>

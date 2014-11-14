@@ -1,10 +1,10 @@
 === SiteGuard WP Plugin ===
 Contributors: jp-secure
 Donate link: -
-Tags: security, waf
+Tags: security, waf, brute force, password list, login lock, login alert, captcha, pingback, fail once
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 1.0.6
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,16 @@ Especially, it is the function to prevent an automated attack. The connection so
 the specified number within the specified period is blocked for the specified time.
 Each user account is not locked.
 
+* Login Alert
+
+It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in.
+If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. 
+
+* Fail Once
+
+It is the function to decrease the vulnerability against a password list attack. Even is the login input is correct, the first login must fail.
+After 5 seconds and later within 60 seconds, another correct login input make login succeed. At the first login failure, the following error message is displayed. 
+
 * Disable Pingback
 
 The pingback function is disabled and its abuse is prevented.
@@ -60,6 +70,10 @@ It is the function to create the rule to avoid the false detection in WordPress 
 if WAF ( SiteGuard Lite ) by JP-Secure is installed on a Web server. WAF prevents the attack from the outside against the Web server,
 but for some WordPress or plugin functions, WAF may detect the attack which is actually not attack and block the function.
 By creating the WAF exclude rule, the WAF protection function can be activated while the false detection for the specified function is prevented. 
+
+= Translate =
+
+If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [us]( sgdev@jp-secure.com ) so that We can bundle it into SiteGuard WP Plugin. You can download the latest [POT file](http://plugins.svn.wordpress.org/siteguard/trunk/languages/siteguard.pot), and [PO files in each language](http://plugins.svn.wordpress.org/siteguard/branches/languages/).
 
 == Installation ==
 
@@ -81,6 +95,11 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
+= 1.1.0 =
+* Add the "Login Alert" feature
+* Add the function of inform the new Login page URL by e-mail
+* Fix bug that work "Fail Once" even when the password is a mistake
+* Fix bug that even if the "Rename Login" has been enabled, and have specified a permanent link to the non-standard, jump to the new login page in /login
 = 1.0.6 =
 * Supported with Apache 1.3
 * Fix garbling of CAPTCHA by environment

@@ -48,7 +48,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		add_filter( 'network_site_url', array( $this, 'handler_site_url' ),    10, 2 );
 		add_filter( 'wp_redirect',      array( $this, 'handler_wp_redirect' ), 10, 2 );
 		add_filter( 'register',         array( $this, 'handler_register' ) );
-		#remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+		remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 	}
 	function handler_login_init( ) {
 		global $config;
@@ -138,6 +138,18 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 			include( $template );
 		}
 		die;
+	}
+	function send_notify( ) {
+		global $config;
+		$subject = esc_html__( 'WordPress: Login page URL was changed', 'siteguard' );
+		$body    = sprintf( esc_html__( "Please bookmark following of the new login URL.\n\n%s\n\n--\nSiteGuard WP Plugin", 'siteguard' ), site_url( ) . '/' . $config->get( 'renamelogin_path' ) );
+
+		$user_query = new WP_User_Query( array( 'role' => 'Administrator' ) );
+		if ( ! empty( $user_query->results ) ) {
+			foreach ( $user_query->results as $user ) {
+				@wp_mail( $user->get('user_email'), $subject, $body );
+			}
+		}
 	}
 }
 

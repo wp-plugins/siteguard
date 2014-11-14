@@ -221,6 +221,9 @@ msgstr "ログインページ変更"
 msgid "Login Lock"
 msgstr "ログインロック"
 
+msgid "Login Alert"
+msgstr "ログインアラート"
+
 #: admin/siteguard-menu-dashboard.php:51
 #: admin/siteguard-menu-disable-pingback.php:23
 #: admin/siteguard-menu-init.php:20
@@ -322,6 +325,27 @@ msgstr ""
 "１回だけログインが失敗します。"
 "5秒以降、60秒以内に再度正しいログイン情報を入力すると、ログインが成功します。"
 
+msgid "Subject"
+msgstr "サブジェクト"
+
+msgid "Body"
+msgstr "メール本文"
+
+msgid "Recipients"
+msgstr "受信者"
+
+msgid ""
+"It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%)"
+
+msgstr ""
+"不正なログインに気づきやすくするための機能です。ログインすると、ログインユーザーにメールが送信されます。ログインした心当たりがないのにメールを受信した場合は、不正なログインを疑ってください。サブジェクトとメール本文には、次の変数が使用できます。（サイト名：%SITENAME%、ユーザ名：%USERNAME%、日付：%DATE%、時刻：%TIME%）"
+
+msgid "New login at %SITENAME%"
+msgstr "%SITENAME%にログインがありました"
+
+msgid "%USERNAME% logged in at %DATE% %TIME%\n\n--\nSiteGuard WP Plugin"
+msgstr "%DATE% %TIME%に%USERNAME%がログインしました。\n\n--\nSiteGuard WP Plugin"
+
 #: admin/siteguard-menu-rename-login.php:51
 msgid "New Login Path"
 msgstr "変更後のログインページ名"
@@ -350,6 +374,12 @@ msgstr ""
 "ブルートフォース攻撃、リスト攻撃等の、不正にログインを試みる攻撃を受けにくくするための機能です。"
 "ログインページ（wp-login.php）の名前を変更します。"
 "初期値は、「login_&lt;5桁の乱数&gt;」ですが、お好みの名前に変更することができます。"
+
+msgid "WordPress: Login page URL was changed"
+msgstr "WordPress: ログインページURLが変更されました"
+
+msgid "Please bookmark following of the new login URL.\n\n%s\n\n--\nSiteGuard WP Plugin"
+msgstr "以下の新しいログインページURLを、ブックマークしてください。\n\n%s\n\n--\nSiteGuard WP Plugin"
 
 #: admin/siteguard-menu-sg-whitelist.php:80
 msgid "New rule created"
@@ -527,6 +557,9 @@ msgstr "正しい入力を行っても、ログインを一回失敗します。
 #: admin/siteguard-menu-dashboard.php:47
 msgid "The connection source which repeats login failure is being locked within a certain period."
 msgstr "ログイン失敗を繰り返す接続元を一定期間ロックします。"
+
+msgid "E-mail notifies that there was login."
+msgstr "ログインがあったことを、メールで通知します。"
 
 #: admin/siteguard-menu-dashboard.php:52
 msgid "The abuse of pingback is prevented."
