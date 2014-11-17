@@ -4,23 +4,13 @@ class SiteGuard_Menu_Login_Alert extends SiteGuard_Base {
 	function __construct( ) {
 		$this->render_page( );
 	}
-	function check_recipient( $recipient ) {
-		switch ( $recipient ) {
-		case '1':
-		case '2':
-		case '3':
-			return true;
-		default:
-			return false;
-		}
-	}
 	function render_page( ) {
 		global $config;
 
-		$opt_name_feature   = 'loginalert_enable';
-		$opt_name_subject   = 'loginalert_subject';
-		$opt_name_body      = 'loginalert_body';
-		$opt_name_admin     = 'loginalert_admin_only';
+		$opt_name_feature  = 'loginalert_enable';
+		$opt_name_subject  = 'loginalert_subject';
+		$opt_name_body     = 'loginalert_body';
+		$opt_name_admin    = 'loginalert_admin_only';
 
 		$opt_val_feature   = $config->get( $opt_name_feature );
 		$opt_val_subject   = $config->get( $opt_name_subject );
@@ -93,7 +83,7 @@ class SiteGuard_Menu_Login_Alert extends SiteGuard_Base {
 		</table>
 		<input type="hidden" name="update" value="Y">
 		<div class="siteguard-description">
-		<?php esc_html_e( 'It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%)', 'siteguard' ) ?> 
+		<?php esc_html_e( 'It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, User-Agent:%USERAGENT%, Referer:%REFERER%)', 'siteguard' ) ?> 
 		</div>
 		<hr />
 		<?php

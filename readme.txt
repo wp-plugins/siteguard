@@ -4,7 +4,7 @@ Donate link: -
 Tags: security, waf, brute force, password list, login lock, login alert, captcha, pingback, fail once
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,7 +73,7 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 
 = Translate =
 
-If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [us]( sgdev@jp-secure.com ) so that We can bundle it into SiteGuard WP Plugin. You can download the latest [POT file](http://plugins.svn.wordpress.org/siteguard/trunk/languages/siteguard.pot), and [PO files in each language](http://plugins.svn.wordpress.org/siteguard/branches/languages/).
+If you have created your own language pack, or have an update of an existing one, you can send [gettext PO and MO files](http://codex.wordpress.org/Translating_WordPress) to sgdev@jp-secure.com so that We can bundle it into SiteGuard WP Plugin. You can download the latest [POT file](http://plugins.svn.wordpress.org/siteguard/trunk/languages/siteguard.pot), and [PO files in each language](http://plugins.svn.wordpress.org/siteguard/branches/languages/).
 
 == Installation ==
 
@@ -95,6 +95,9 @@ If you have created your own language pack, or have an update of an existing one
 http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
+= 1.1.1 =
+* Fix bug that can not save "Login Alert" settings
+* Add the "Login Alert" notification variables, IP Address, User-Agent and Referer
 = 1.1.0 =
 * Add the "Login Alert" feature
 * Add the function of inform the new Login page URL by e-mail
