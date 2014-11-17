@@ -335,16 +335,16 @@ msgid "Recipients"
 msgstr "受信者"
 
 msgid ""
-"It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%)"
+"It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, User-Agent:%USERAGENT%, Referer:%REFERER%)"
 
 msgstr ""
-"不正なログインに気づきやすくするための機能です。ログインすると、ログインユーザーにメールが送信されます。ログインした心当たりがないのにメールを受信した場合は、不正なログインを疑ってください。サブジェクトとメール本文には、次の変数が使用できます。（サイト名：%SITENAME%、ユーザ名：%USERNAME%、日付：%DATE%、時刻：%TIME%）"
+"不正なログインに気づきやすくするための機能です。ログインすると、ログインユーザーにメールが送信されます。ログインした心当たりがないのにメールを受信した場合は、不正なログインを疑ってください。サブジェクトとメール本文には、次の変数が使用できます。（サイト名：%SITENAME%、ユーザ名：%USERNAME%、日付：%DATE%、時刻：%TIME%、IPアドレス：%IPADDRESS%、ユーザーエージェント：%USERAGENT%、リファラー：%REFERER%）"
 
 msgid "New login at %SITENAME%"
 msgstr "%SITENAME%にログインがありました"
 
-msgid "%USERNAME% logged in at %DATE% %TIME%\n\n--\nSiteGuard WP Plugin"
-msgstr "%DATE% %TIME%に%USERNAME%がログインしました。\n\n--\nSiteGuard WP Plugin"
+msgid "%USERNAME% logged in at %DATE% %TIME%\n\n== Login information ==\nIP Address: %IPADDRESS%\nReferer: %REFERER%\nUser-Agent: %USERAGENT%\n\n--\nSiteGuard WP Plugin"
+msgstr "%DATE% %TIME%に%USERNAME%がログインしました。\n\n== ログイン情報 ==\nIPアドレス：%IPADDRESS%\nリファラー：%REFERER%\nユーザーエージェント：%USERAGENT%\n\n--\nSiteGuard WP Plugin"
 
 #: admin/siteguard-menu-rename-login.php:51
 msgid "New Login Path"

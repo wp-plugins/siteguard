@@ -104,7 +104,7 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		global $htaccess, $config;
 		$mark = $this->get_mark( );
 		$data = $this->update_settings( $ip_addres );
-		$htaccess->update_settings( $mark, $data );
+		return $htaccess->update_settings( $mark, $data );
 	}
 	static function feature_off( ) {
 		$mark = SiteGuard_AdminFilter::get_mark( );
