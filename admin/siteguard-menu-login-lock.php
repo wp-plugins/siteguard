@@ -40,7 +40,7 @@ class SiteGuard_Menu_Login_Lock extends SiteGuard_Base {
 			  || ( false == $this->is_interval_value( $_POST[ $opt_name_interval ] ) )
 			  || ( false == $this->is_threshold_value( $_POST[ $opt_name_threshold ] ) )
 			  || ( false == $this->is_locksec_value( $_POST[ $opt_name_locksec ] ) ) ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
@@ -124,7 +124,7 @@ class SiteGuard_Menu_Login_Lock extends SiteGuard_Base {
 		<hr />
 		<input type="hidden" name="update" value="Y">
 
-		<?php 
+		<?php
 		wp_nonce_field( 'siteguard-menu-login-lock-submit' );
 		submit_button( );
 		?>

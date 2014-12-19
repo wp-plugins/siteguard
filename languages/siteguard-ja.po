@@ -523,9 +523,9 @@ msgstr "削除"
 
 #: classes/siteguard-captcha.php:60
 msgid ""
-"In order to use this function, it is necessary to install expanded modules"
+"In order to enable this function, it is necessary to install expanded modules"
 msgstr ""
-"この機能を使用するには、次の拡張モジュールがサーバーにインストールされている必要gがあります。"
+"この機能を使用するには、次の拡張モジュールがサーバーにインストールされている必要があります。"
 
 #: classes/siteguard-captcha.php:71
 msgid "in the server."

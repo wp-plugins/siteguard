@@ -2,7 +2,7 @@
 class SiteGuard_Menu_INIT extends SiteGuard_Base {
 	function __construct( ) {
 		add_action( 'admin_menu', array( &$this, 'add_pages' ) );
-		if ( isset( $_GET['page'] ) && strpos( $_GET['page'], 'siteguard' ) !== false ) {
+		if ( isset( $_GET['page'] ) && false !== strpos( $_GET['page'], 'siteguard' ) ) {
 			add_action( 'admin_print_styles', array( $this, 'menu_styles' ) );
 		}
 	}

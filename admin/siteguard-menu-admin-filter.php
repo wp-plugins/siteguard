@@ -27,8 +27,8 @@ class SiteGuard_Menu_Admin_Filter extends SiteGuard_Base {
 		$opt_val_exclude = $this->cvt_camma2ret( $config->get( $opt_name_exclude ) );
 		if ( isset( $_POST['update'] ) && check_admin_referer( 'siteguard-menu-admin-filter-submit' ) ) {
 			$error = false;
-			if ( '1' == $_POST[ $opt_name_feature ] && $this->check_module( 'rewrite' ) == false ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+			if ( '1' == $_POST[ $opt_name_feature ] && false == $this->check_module( 'rewrite' ) ) {
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'To use this function, “mod_rewrite” should be loaded on Apache.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
@@ -38,7 +38,7 @@ class SiteGuard_Menu_Admin_Filter extends SiteGuard_Base {
 				$opt_val_feature = '0';
 			}
 			if ( false == $this->is_switch_value( $_POST[ $opt_name_feature ] ) ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
@@ -82,7 +82,7 @@ class SiteGuard_Menu_Admin_Filter extends SiteGuard_Base {
 			</li>
 			</ul>
 			<?php
-			echo '<p class="description">'; 
+			echo '<p class="description">';
 			esc_html_e( 'To use this function, “mod_rewrite” should be loaded on Apache.', 'siteguard' );
 			echo '</p>';
 			?>

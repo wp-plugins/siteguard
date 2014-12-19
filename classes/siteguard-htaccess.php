@@ -168,16 +168,14 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 			fwrite( $fw, $mark_end . "\n", strlen( $mark_end ) + 1 );
 			fwrite( $fw, SiteGuard_Htaccess::$htaccess_mark_end . "\n", strlen( SiteGuard_Htaccess::$htaccess_mark_end ) + 1 );
 		}
-		// Write saved WordPress Settings
-		if ( '' != $wp_settings ) {
+		if ( '' != $wp_settings ) {       // Write saved WordPress Settings
 			fwrite( $fw, "\n", 1 );
 			fwrite( $fw, $wp_settings, strlen( $wp_settings ) );
 			fwrite( $fw, "\n", 1 );
-		// Write empty WordPress Settings
-		} else if ( false == $flag_wp ) {
+		} else if ( false == $flag_wp ) { // Write empty WordPress Settings
 			fwrite( $fw, "\n", 1 );
 			fwrite( $fw, $mark_wp_start . "\n", strlen( $mark_wp_start ) + 1 );
-			fwrite( $fw, $mark_wp_end   . "\n", strlen( $mark_wp_end )   + 1 );
+			fwrite( $fw, $mark_wp_end   . "\n", strlen( $mark_wp_end ) + 1 );
 			fwrite( $fw, "\n", 1 );
 		}
 		fclose( $fr );

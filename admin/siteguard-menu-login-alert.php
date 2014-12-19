@@ -19,7 +19,7 @@ class SiteGuard_Menu_Login_Alert extends SiteGuard_Base {
 		if ( isset( $_POST['update'] ) && check_admin_referer( 'siteguard-menu-login-alert-submit' ) ) {
 			$error = false;
 			if ( false == $this->is_switch_value( $_POST[ $opt_name_feature ] ) ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
@@ -28,11 +28,11 @@ class SiteGuard_Menu_Login_Alert extends SiteGuard_Base {
 				$opt_val_feature   = $_POST[ $opt_name_feature ];
 				$opt_val_subject   = $_POST[ $opt_name_subject ];
 				$opt_val_body      = $_POST[ $opt_name_body ];
-                if ( isset( $_POST[ $opt_name_admin ] ) ) {
-                    $opt_val_admin = $_POST[ $opt_name_admin ];
-                } else {
-                    $opt_val_admin = '0';
-                }
+				if ( isset( $_POST[ $opt_name_admin ] ) ) {
+					$opt_val_admin = $_POST[ $opt_name_admin ];
+				} else {
+					$opt_val_admin = '0';
+				}
 				$config->set( $opt_name_feature,   $opt_val_feature );
 				$config->set( $opt_name_subject,   $opt_val_subject );
 				$config->set( $opt_name_body,      $opt_val_body );

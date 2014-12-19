@@ -3,8 +3,8 @@ Contributors: jp-secure
 Donate link: -
 Tags: security, waf, brute force, password list, login lock, login alert, captcha, pingback, fail once
 Requires at least: 3.9
-Tested up to: 4.0
-Stable tag: 1.1.1
+Tested up to: 4.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,9 @@ If you have created your own language pack, or have an update of an existing one
 http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
 
 == Changelog ==
+= 1.1.2 =
+* Supported with WP 4.1
+* Disabling the Admin IP Filter function by default 
 = 1.1.1 =
 * Fix bug that can not save "Login Alert" settings
 * Add the "Login Alert" notification variables, IP Address, User-Agent and Referer

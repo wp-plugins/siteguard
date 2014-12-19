@@ -40,7 +40,7 @@ class SiteGuard_Menu_CAPTCHA extends SiteGuard_Base {
 			  || ( false == $this->is_captcha_switch_value( $_POST[ $opt_name_comment ] ) )
 			  || ( false == $this->is_captcha_switch_value( $_POST[ $opt_name_lostpassword ] ) )
 			  || ( false == $this->is_captcha_switch_value( $_POST[ $opt_name_registuser ] ) ) ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
@@ -81,7 +81,7 @@ class SiteGuard_Menu_CAPTCHA extends SiteGuard_Base {
 			<label for="<?php echo $opt_name_enable.'_off' ?>"><?php esc_html_e( 'OFF', 'siteguard' ) ?></label>
 			</li>
 			</ul>
-			<?php 
+			<?php
 			$error = $captcha->check_requirements( );
 			if ( is_wp_error( $error ) ) {
 				echo '<p class="description">';
@@ -146,7 +146,7 @@ class SiteGuard_Menu_CAPTCHA extends SiteGuard_Base {
 		<input type="hidden" name="update" value="Y">
 		<hr />
 
-		<?php 
+		<?php
 		wp_nonce_field( 'siteguard-menu-captcha-submit' );
 		submit_button();
 		?>

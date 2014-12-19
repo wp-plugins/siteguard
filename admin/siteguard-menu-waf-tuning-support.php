@@ -13,7 +13,7 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 	function set_filename( $filename ) {
 		$base = basename( $filename );
 		$idx = strpos( $base, '?' );
-		if ( $idx !== false ) {
+		if ( false !== $idx ) {
 			return substr( $base, 0, $idx );
 		} else {
 			return $base;
@@ -128,18 +128,18 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 						if ( ! isset( $_POST['waf_exclude_rule_enable'] ) ) {
 							// error
 						} else {
-	                        $error = false;
-	                        if ( '1' == $_POST['waf_exclude_rule_enable'] && $this->check_module( 'siteguard' ) == false ) {
-                                echo '<div class="error settings-error"><p><strong>';
-                                esc_html_e( 'To use the WAF exclude rule, WAF ( SiteGuard Lite ) should be installed on Apache.', 'siteguard' );
-                                echo '</strong></p></div>';
-                                $error = true; 
+				                        $error = false;
+							if ( '1' == $_POST['waf_exclude_rule_enable'] && false == $this->check_module( 'siteguard' ) ) {
+								echo '<div class="error settings-error"><p><strong>';
+								esc_html_e( 'To use the WAF exclude rule, WAF ( SiteGuard Lite ) should be installed on Apache.', 'siteguard' );
+								echo '</strong></p></div>';
+								$error = true;
 								$waf_exclude_rule->set_enable( '0' );
 								$waf_exclude_rule->feature_off( );
 								$waf_exclude_rule_enable = '0';
-	                        }
+							}
 							if ( false == $this->is_switch_value( $_POST['waf_exclude_rule_enable'] ) ) {
-								echo '<div class="error settings-error"><p><strong>'; 
+								echo '<div class="error settings-error"><p><strong>';
 								esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 								echo '</strong></p></div>';
 								$error = true;
@@ -262,7 +262,7 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 				if ( 'add' == $action ) {
 					echo '<input type="hidden" name="update" id="update" value="add">';
 					wp_nonce_field( 'siteguard-menu-waf-tuning-support-add' );
-					submit_button( esc_attr__( 'Save', 'siteguard') );
+					submit_button( esc_attr__( 'Save', 'siteguard' ) );
 				} else {
 					echo '<input type="hidden" name="update" id="update" value="edit">';
 					echo '<input type="hidden" name="rule" id="rule" value="' . esc_attr( $id ) . '">';
@@ -276,7 +276,7 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 				?>
 				<form name="form1" method="post" action="<?php echo esc_url( menu_page_url( 'siteguard_waf_tuning_support', false ) ) ?>">
 				<?php
-				echo '<p>' . _n( 'You have specified this rule for deletion:', 'You have specified these rules for deletion:', count( $ids ), 'siteguard' ) . '</p>';
+				echo '<p>' .esc_html( _n( 'You have specified this rule for deletion:', 'You have specified these rules for deletion:', count( $ids ), 'siteguard' ) ) . '</p>';
 				$go_delete = 0;
 				foreach ( $ids as $id ) {
 					$offset = 0;
@@ -284,7 +284,7 @@ By creating the WAF exclude rule, the WAF protection function can be activated w
 					echo '<input type="hidden" name="rule[]" value="' . esc_attr( $id ) . '" />' . esc_html__( 'Signature', 'siteguard' ) . ' : ' . esc_html__( 'Filename', 'siteguard' ) . ' : ' . esc_html__( 'Comment', 'siteguard' ) . ' [' . esc_html( $rule['sig'] ) . ' : ' . esc_html( $rule['filename'] ) . ' : ' . esc_html( $rule['comment'] ) . "]<br />\n";
 					$go_delete = 1;
 				}
-				if ( $go_delete == 1 ) {
+				if ( 1 == $go_delete ) {
 					echo '<input type="hidden" name="update" id="update" value="delete">';
 					wp_nonce_field( 'siteguard-menu-waf-tuning-support-delete' );
 					submit_button( esc_attr__( 'Confirm Deletion', 'siteguard' ) );

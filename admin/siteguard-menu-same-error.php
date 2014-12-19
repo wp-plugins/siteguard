@@ -22,7 +22,7 @@ class SiteGuard_Menu_Same_Error extends SiteGuard_Base {
 				}
 			}
 			if ( false == $this->is_switch_value( $_POST[ $opt_name_enable ] ) ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
@@ -64,7 +64,7 @@ class SiteGuard_Menu_Same_Error extends SiteGuard_Base {
 		</div>
 		<hr />
 
-		<?php 
+		<?php
 		wp_nonce_field( 'siteguard-menu-same-error-submit' );
 		submit_button();
 		?>

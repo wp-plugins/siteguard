@@ -51,12 +51,12 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 			$errors->add( 'white_list_error', esc_html__( 'ERROR: Signature is required', 'siteguard' ) );
 		} else {
 			$tmp_sig = str_ireplace( 'SiteGuard_User_ExcludeSig ', '', $sig );
-			$tmp_sig = str_replace(  ' ', '', $tmp_sig );
+			$tmp_sig = str_replace( ' ', '', $tmp_sig );
 			$tmp_sig = preg_replace( "/\r\n(\r\n)+/", "\r\n", $tmp_sig );
 			$tmp_sig = preg_replace( "/\r\n$/", '', $tmp_sig );
 			$tmp_sig = preg_replace( "/\n\n+/", "\n", $tmp_sig );
 			$tmp_sig = preg_replace( "/\n$/", '', $tmp_sig );
-			if ( preg_match( '/^[a-zA-Z0-9-\r\n]+$/', $tmp_sig ) != 1 ) {
+			if ( 1 != preg_match( '/^[a-zA-Z0-9-\r\n]+$/', $tmp_sig ) ) {
 				$errors->add( 'white_list_error', esc_html__( 'ERROR: Syntax Error in Signature', 'siteguard' ) );
 			} else {
 				$sig = $tmp_sig;
@@ -77,7 +77,7 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 			return $errors;
 		}
 		$sig = str_ireplace( 'SiteGuard_User_ExcludeSig', '', $sig );
-		$sig = str_replace(  ' ', '', $sig );
+		$sig = str_replace( ' ', '', $sig );
 		$rules = $config->get( SITEGUARD_WAF_EXCLUDE_RULE );
 		$rule = array(
 			'ID' => $this->get_max_id( $rules ) + 1,
@@ -176,7 +176,7 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 		return $result;
 	}
 	// for SiteGuard Lite Ver1.x
-	function output_ExcludeSig_1( $sig_str ) {
+	function output_exclude_sig_1( $sig_str ) {
 		$result = '';
 		$csv = $this->cvt_csrf2comma( $sig_str );
 		$sigs = preg_split( '/,/', $csv );
@@ -189,7 +189,7 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 		return $result;
 	}
 	// for SiteGuard Lite Ver2.x
-	function output_ExcludeSig_2( $sig_str ) {
+	function output_exclude_sig_2( $sig_str ) {
 		return '        SiteGuard_User_ExcludeSig '. $this->cvt_csrf2comma( $sig_str ) . "\n";
 	}
 	function update_settings( ) {
@@ -207,10 +207,10 @@ class SiteGuard_WAF_Exclude_Rule extends SiteGuard_Base {
 				$sig    = $rule['sig'];
 				if ( ! empty( $filename ) ) {
 					$htaccess_str .= "    <Files $filename >\n";
-					$htaccess_str .= $this->output_ExcludeSig_1( $sig );
+					$htaccess_str .= $this->output_exclude_sig_1( $sig );
 					$htaccess_str .= "    </Files>\n";
 				} else {
-					$htaccess_str .= $this->output_ExcludeSig_1( $sig );
+					$htaccess_str .= $this->output_exclude_sig_1( $sig );
 				}
 			}
 		}

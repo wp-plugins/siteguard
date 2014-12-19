@@ -6,13 +6,12 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	function __construct( ) {
 		global $config;
 		if ( '1' == $config->get( 'renamelogin_enable' ) ) {
-			if ( NULL != $this->get_active_incompatible_plugin( ) ) {
+			if ( null != $this->get_active_incompatible_plugin( ) ) {
 				$config->set( 'renamelogin_enable', '0' );
 				$config->update( );
 				$this->feature_off( );
 				return;
 			}
-			 
 			$this->add_filter( );
 		}
 	}
@@ -22,7 +21,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	function init( ) {
 		global $config;
 		$config->set( 'renamelogin_path', 'login_' . sprintf( '%05d', mt_rand( 1, 99999 ) ) );
-		if ( $this->check_module( 'rewrite' ) && NULL == $this->get_active_incompatible_plugin( ) ) {
+		if ( $this->check_module( 'rewrite' ) && null == $this->get_active_incompatible_plugin( ) ) {
 			$config->set( 'renamelogin_enable', '1' );
 			$config->update( );
 			$this->feature_on( );
@@ -32,7 +31,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		}
 	}
 	function get_active_incompatible_plugin( ) {
-		$incompatible_plugins = array( 
+		$incompatible_plugins = array(
 			'WordPress HTTPS (SSL)' => 'wordpress-https/wordpress-https.php',
 		 );
 		foreach ( $incompatible_plugins as $name => $path ) {
@@ -40,7 +39,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 				return $name;
 			}
 		}
-		return NULL;
+		return null;
 	}
 	function add_filter( ) {
 		add_filter( 'login_init',       array( $this, 'handler_login_init' ),  10, 2 );
@@ -147,7 +146,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		$user_query = new WP_User_Query( array( 'role' => 'Administrator' ) );
 		if ( ! empty( $user_query->results ) ) {
 			foreach ( $user_query->results as $user ) {
-				@wp_mail( $user->get('user_email'), $subject, $body );
+				@wp_mail( $user->get( 'user_email' ), $subject, $body );
 			}
 		}
 	}
