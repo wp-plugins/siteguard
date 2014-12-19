@@ -14,25 +14,25 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 		$opt_val_rename_login_path = $config->get( $opt_name_rename_login_path );
 		if ( isset( $_POST['update'] ) && check_admin_referer( 'siteguard-menu-rename-login-submit' ) ) {
 			$error = false;
-			if ( '1' == $_POST[ $opt_name_feature ] && $this->check_module( 'rewrite' ) == false ) {
+			if ( '1' == $_POST[ $opt_name_feature ] && false == $this->check_module( 'rewrite' ) ) {
 				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'To use this function, “mod_rewrite” should be loaded on Apache.', 'siteguard' );
 				echo '</strong></p></div>';
-				$error = true; 
+				$error = true;
 				$config->set( $opt_name_feature, '0' );
 				$config->update( );
 				$rename_login->feature_off( );
 				$opt_val_feature = '0';
 			}
 			if ( false == $this->is_switch_value( $_POST[ $opt_name_feature ] ) ) {
-				echo '<div class="error settings-error"><p><strong>'; 
+				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
 			}
 			if ( '1' == $_POST[ $opt_name_feature ] ) {
 				$incompatible_plugin = $rename_login->get_active_incompatible_plugin( );
-				if ( NULL != $incompatible_plugin ) {
+				if ( null != $incompatible_plugin ) {
 					echo '<div class="error settings-error"><p><strong>';
 					echo esc_html__( 'This function and Plugin "', 'siteguard' ) . $incompatible_plugin . esc_html__( '" cannot be used at the same time.', 'siteguard' );
 					echo '</strong></p></div>';
@@ -95,7 +95,7 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 			</li>
 			</ul>
 			<?php
-			echo '<p class="description">';           
+			echo '<p class="description">';
 			esc_html_e( 'To use this function, “mod_rewrite” should be loaded on Apache.', 'siteguard' );
 			echo '</p>';
 			?>
@@ -105,7 +105,7 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 		<td>
 			<?php echo site_url() . '/' ?><input type="text" name="<?php echo $opt_name_rename_login_path ?>" id="<?php echo $opt_name_rename_login_path ?>" value="<?php echo esc_attr( $opt_val_rename_login_path ) ?>" >
 			<?php
-			echo '<p class="description">';           
+			echo '<p class="description">';
 			esc_html_e( 'An alphanumeric character, a hyphen, and an underbar can be used.', 'siteguard' );
 			echo '</p>';
 			?>

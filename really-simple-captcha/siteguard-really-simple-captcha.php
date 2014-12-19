@@ -85,7 +85,7 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 
 		$word = '';
 
-		if( $this->lang_mode == 'jp' ) {
+		if ( 'jp' == $this->lang_mode ) {
 			$this->chars = $chars_jp;
 		} else {
 			$this->chars = $chars_en;
@@ -114,7 +114,7 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 		$this->cleanup();
 
 		/* Array of fonts. Randomly picked up per character */
-		if( $this->lang_mode == 'jp' ) {
+		if ( 'jp' == $this->lang_mode ) {
 			$this->fonts = array(
 				dirname( __FILE__ ) . '/mplus-TESTFLIGHT-058/mplus-1c-hiragana-black.ttf',
 				//dirname( __FILE__ ) . '/mplus-TESTFLIGHT-058/mplus-1c-hiragana-bold.ttf',
@@ -179,11 +179,9 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 			imagefill( $im, 0, 0, $bg );
 
 			// randam lines
-			for( $i = 0; $i < 5; $i++ ) {
+			for ( $i = 0; $i < 5; $i++ ) {
 				$color  = imagecolorallocate( $im, 196, 196, 196 );
-				imageline( $im, mt_rand( 0, $this->img_size[0] - 1 ), mt_rand( 0, $this->img_size[1] - 1 ), 
-						mt_rand( 0, $this->img_size[0] - 1 ), mt_rand( 0, $this->img_size[1] - 1 ), 
-					$color );
+				imageline( $im, mt_rand( 0, $this->img_size[0] - 1 ), mt_rand( 0, $this->img_size[1] - 1 ), mt_rand( 0, $this->img_size[0] - 1 ), mt_rand( 0, $this->img_size[1] - 1 ), $color );
 			}
 
 			$x = $this->base[0] + mt_rand( -2, 2 );
@@ -197,8 +195,7 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 				} else {
 					$char = mb_substr( $word, $i, 1 );
 				}
-				imagettftext( $im, $this->font_size, mt_rand( -12, 12 ), $x,
-					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $char );
+				imagettftext( $im, $this->font_size, mt_rand( -12, 12 ), $x, $this->base[1] + mt_rand( -2, 2 ), $fg, $font, $char );
 				$x += $this->font_char_width;
 			}
 
@@ -266,7 +263,7 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 			return false;
 		}
 
-		$response = str_replace( array( " ", "\t" ), '', $response );
+		$response = str_replace( array( ' ', "\t" ), '', $response );
 		$response = strtoupper( $response );
 
 		$dir = trailingslashit( $this->tmp_dir );

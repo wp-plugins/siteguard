@@ -103,7 +103,7 @@ class SiteGuard_LoginLock extends SiteGuard_Base {
 		if ( is_wp_error( $user ) ) {
 			return $user;
 		}
-		if ( !wp_check_password($password, $user->user_pass, $user->ID) ) {
+		if ( ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
 			return $user;
 		}
 		if ( '1' == $config->get( 'fail_once_admin_only' ) ) {

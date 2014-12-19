@@ -33,7 +33,7 @@ class SiteGuard_Base {
 			return $default;
 		}
 
-		# It does not work in FastCGI well. 
+		# It does not work in FastCGI well.
 		#$module = 'mod_' . $name;
 		#return apache_mod_loaded( $module, $default );
 		#if ( function_exists('phpinfo') ) {
@@ -47,12 +47,12 @@ class SiteGuard_Base {
 		#return $default;
 	}
 	function is_active_plugin( $plugin ) {
-		if ( function_exists('is_plugin_active') ) {
+		if ( function_exists( 'is_plugin_active' ) ) {
 			return is_plugin_active( $plugin );
 		} else {
 			return in_array(
 				$plugin,
-				get_option('active_plugins')
+				get_option( 'active_plugins' )
 			);
 		}
 	}

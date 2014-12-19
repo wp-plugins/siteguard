@@ -24,14 +24,8 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta( $sql );
 		$config->set( 'admin_filter_exclude_path', 'css,images,admin-ajax.php' );
-		if ( $this->check_module( 'rewrite' ) ) {
-			$config->set( 'admin_filter_enable', '1' );
-			$config->update( );
-			$this->feature_on( $_SERVER['REMOTE_ADDR'] );
-		} else {
-			$config->set( 'admin_filter_enable', '0' );
-			$config->update( );
-		}
+		$config->set( 'admin_filter_enable', '0' );
+		$config->update( );
 	}
 	function handler_wp_login( $login, $current_user ) {
 		global $htaccess, $config;
@@ -83,7 +77,7 @@ class SiteGuard_AdminFilter extends SiteGuard_Base {
 		$htaccess_str .= "    RewriteEngine on\n";
 		$htaccess_str .= "    RewriteBase $base\n";
 		$htaccess_str .= "    RewriteRule ^404-siteguard - [L]\n";
-		foreach( $exclude_paths as $path ) {
+		foreach ( $exclude_paths as $path ) {
 			$htaccess_str .= '    RewriteRule ^wp-admin/' . trim( $path ) . " - [L]\n";
 		}
 		$htaccess_str .= '    RewriteCond %{REMOTE_ADDR} !(127.0.0.1|'. $_SERVER['SERVER_ADDR'] . ")\n";

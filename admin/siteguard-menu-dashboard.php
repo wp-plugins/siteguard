@@ -24,9 +24,9 @@ class SiteGuard_Menu_Dashboard extends SiteGuard_Base {
 		echo '<div class="wrap">';
 		echo '<img src="' . $img_path . 'sg_wp_plugin_logo_40.png" alt="SiteGuard Logo" />';
 		echo '<h2>' . esc_html__( 'Dashboard', 'siteguard' ) . "</h2>\n";
-		echo '<div class="siteguard-description">' 
-		. esc_html__( 'You can find docs, FAQ and more detailed information about SiteGuard WP Plugin on ', 'siteguard' ) 
-		. '<a href="' . esc_html__('http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index_en.html', 'siteguard' ) . '" target="_blank">' . esc_html__('SiteGuard WP Plugin Page', 'siteguard') . '</a>' . esc_html__( '.', 'siteguard' ) . '</div>';
+		echo '<div class="siteguard-description">'
+		. esc_html__( 'You can find docs, FAQ and more detailed information about SiteGuard WP Plugin on ', 'siteguard' )
+		. '<a href="' . esc_html__( 'http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index_en.html', 'siteguard' ) . '" target="_blank">' . esc_html__( 'SiteGuard WP Plugin Page', 'siteguard' ) . '</a>' . esc_html__( '.', 'siteguard' ) . '</div>';
 		echo '<h3>' . esc_html__( 'Setting status', 'siteguard' ) . "</h3>\n";
 		?>
 		<table class="siteguard-form-table">

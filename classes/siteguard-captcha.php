@@ -93,16 +93,16 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 			$switch = '0';
 		}
 		$config->set( 'captcha_enable',     $switch );
-                $language = get_bloginfo('language');
-                if ( 'ja' == $language ) {
-                        $mode = '1'; // hiragana
-                } else {
-                        $mode = '2'; // alphanumeric
-                }
-                $config->set( 'captcha_login',      $mode );
-                $config->set( 'captcha_comment',    $mode );
-                $config->set( 'captcha_lostpasswd', $mode );
-                $config->set( 'captcha_registuser', $mode );
+		$language = get_bloginfo( 'language' );
+		if ( 'ja' == $language ) {
+			$mode = '1'; // hiragana
+		} else {
+			$mode = '2'; // alphanumeric
+		}
+		$config->set( 'captcha_login',      $mode );
+		$config->set( 'captcha_comment',    $mode );
+		$config->set( 'captcha_lostpasswd', $mode );
+		$config->set( 'captcha_registuser', $mode );
 		$config->set( 'same_login_error',   '1' );
 		$config->update( );
 	}
