@@ -9,7 +9,7 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 
 	function __construct( ) {
 		global $config;
-		if ( '1' == $config->get( 'captcha_enable' ) ) {
+		if ( '1' == $config->get( 'captcha_enable' ) && 'xmlrpc.php' != basename( $_SERVER['SCRIPT_NAME'] ) ) {
 			$this->captcha = new SiteGuardReallySimpleCaptcha( );
 			$this->captcha->bg = array( 255, 255, 255 );
 
@@ -43,6 +43,17 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		}
 	}
 	function check_requirements( ) {
+		$error = $this->check_extensions( );
+		if ( is_wp_error( $error ) ) {
+			return $error;
+		}
+		$error = $this->check_image_access( );
+		if ( is_wp_error( $error ) ) {
+			return $error;
+		}
+		return true;
+	}
+	function check_extensions( ) {
 		$error_extensions = array();
 		$extensions = array(
 			'mbstring',
@@ -73,6 +84,21 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		$error = new WP_Error( 'siteguard_captcha', $message );
 		return $error;
 	}
+	function check_image_access( ) {
+		if ( is_object( $this->captcha ) ) {
+			$this->captcha->make_tmp_dir( );
+		} else {
+			$captcha = new SiteGuardReallySimpleCaptcha( );
+			$captcha->make_tmp_dir( );
+		}
+		$result = wp_remote_get( SITEGUARD_URL_PATH . 'really-simple-captcha/tmp/dummy.png' );
+		if ( ! is_wp_error( $result ) && $result['response']['code'] === 200 ) {
+			return true;
+		}
+		$message  = esc_html__( 'In order to enable this function, it is necessary to specify Limit to AllowOverride in httpd.conf.', 'siteguard' );
+		$error = new WP_Error( 'siteguard_captcha', $message );
+		return $error;
+	}
 	function handler_login_errors( $error ) {
 		if ( strlen( $error ) > 0 && false === strpos( $error, esc_html__( 'ERROR: LOGIN LOCKED', 'siteguard' ) ) && false === strpos( $error, esc_html__( 'ERROR: Please login entry again', 'siteguard' ) ) ) {
 			$error = esc_html__( 'ERROR: Please check the input and resend.', 'siteguard' );
@@ -92,7 +118,7 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		} else {
 			$switch = '0';
 		}
-		$config->set( 'captcha_enable',     $switch );
+		$config->set( 'captcha_enable', $switch );
 		$language = get_bloginfo( 'language' );
 		if ( 'ja' == $language ) {
 			$mode = '1'; // hiragana
@@ -148,61 +174,45 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		$this->put_captcha( );
 	}
 	function handler_wp_authenticate_user( $user, $password ) {
-		global $config;
-		if ( '1' == $config->get( 'captcha_enable' ) ) {
-			if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
-				if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
-					return $user;
-				}
+		if ( array_key_exists( 'siteguard_captcha', $_POST ) && array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
+			if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
+				return $user;
 			}
-			$error = new WP_Error( );
-			$error->add( 'siteguard-captcha-error', esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
-			return $error;
 		}
-		return $user;
+		$error = new WP_Error( );
+		$error->add( 'siteguard-captcha-error', esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
+		return $error;
 	}
 	function add_captcha_error( ) {
 		return new WP_Error( 'siteguard-captcha-error', esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
 	}
 	function handler_lostpassword_post( ) {
-		global $config;
-		if ( '1' == $config->get( 'captcha_enable' ) ) {
-			if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
-				if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
-					return;
-				}
+		if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
+			if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
+				return;
 			}
-			add_filter( 'allow_password_reset', array( $this, 'add_captcha_error' ) );
 		}
-		return;
+		add_filter( 'allow_password_reset', array( $this, 'add_captcha_error' ) );
 	}
 	function handler_registration_errors( $errors, $sanitized_user_login, $user_email ) {
-		global $config;
-		if ( '1' == $config->get( 'captcha_enable' ) ) {
-			if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
-				if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
-					return $errors;
-				}
+		if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
+			if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
+				return $errors;
 			}
-			$new_errors = new WP_Error( );
-			$new_errors->add( 'siteguard-captcha-error', esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
-			return $new_errors;
 		}
-		return $errors;
+		$new_errors = new WP_Error( );
+		$new_errors->add( 'siteguard-captcha-error', esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
+		return $new_errors;
 	}
 	function handler_process_comment_post( $comment ) {
-		global $config;
-		if ( '1' == $config->get( 'captcha_enable' ) ) {
-			if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
-				if ( ! empty( $_POST['siteguard_captcha'] ) ) {
-					if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
-						return $comment;
-					}
+		if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
+			if ( ! empty( $_POST['siteguard_captcha'] ) ) {
+				if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
+					return $comment;
 				}
 			}
-			wp_die( esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
 		}
-		return $comment;
+		wp_die( esc_html__( 'ERROR: Invalid CAPTCHA.', 'siteguard' ) );
 	}
 }
 

@@ -83,7 +83,7 @@ class SiteGuard_Menu_Login_Alert extends SiteGuard_Base {
 		</table>
 		<input type="hidden" name="update" value="Y">
 		<div class="siteguard-description">
-		<?php esc_html_e( 'It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, User-Agent:%USERAGENT%, Referer:%REFERER%)', 'siteguard' ) ?> 
+		<?php esc_html_e( 'It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, User-Agent:%USERAGENT%, Referer:%REFERER%) Access by the XML-RPC will not be notified.', 'siteguard' ) ?> 
 		</div>
 		<hr />
 		<?php

@@ -8,7 +8,7 @@ class SiteGuard_LoginLock extends SiteGuard_Base {
 			add_action( 'wp_login_failed', array( $this, 'handler_wp_login_failed' ) );
 			add_filter( 'authenticate', array( $this, 'handler_authenticate' ), 20, 3 );
 		}
-		if ( $config->get( 'loginlock_fail_once' ) ) {
+		if ( '1' == $config->get( 'loginlock_fail_once' ) ) {
 			add_filter( 'wp_authenticate_user', array( $this, 'handler_wp_authenticate_user' ), 99, 2 );
 		}
 	}
@@ -98,6 +98,10 @@ class SiteGuard_LoginLock extends SiteGuard_Base {
 	}
 	function handler_wp_authenticate_user( $user, $password ) {
 		global $login_history, $config;
+
+		if ( basename( $_SERVER['SCRIPT_NAME'] ) == 'xmlrpc.php' ) {
+			return $user;
+		}
 
 		// Login failed
 		if ( is_wp_error( $user ) ) {

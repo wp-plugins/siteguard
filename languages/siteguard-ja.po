@@ -169,6 +169,9 @@ msgstr "英数字"
 msgid "Disable"
 msgstr "無効"
 
+msgid "Enable"
+msgstr "有効"
+
 #: admin/siteguard-menu-captcha.php:74
 msgid "Comment page"
 msgstr "コメントページ"
@@ -335,10 +338,10 @@ msgid "Recipients"
 msgstr "受信者"
 
 msgid ""
-"It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, User-Agent:%USERAGENT%, Referer:%REFERER%)"
+"It is the function to make it easier to notice unauthorized login. E-mail will be sent to a login user when logged in. If you receive an e-mail to there is no logged-in idea, please suspect unauthorized login. The subject and the mail body, the following variables can be used. (Site Name:%SITENAME%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, User-Agent:%USERAGENT%, Referer:%REFERER%) Access by the XML-RPC will not be notified."
 
 msgstr ""
-"不正なログインに気づきやすくするための機能です。ログインすると、ログインユーザーにメールが送信されます。ログインした心当たりがないのにメールを受信した場合は、不正なログインを疑ってください。サブジェクトとメール本文には、次の変数が使用できます。（サイト名：%SITENAME%、ユーザ名：%USERNAME%、日付：%DATE%、時刻：%TIME%、IPアドレス：%IPADDRESS%、ユーザーエージェント：%USERAGENT%、リファラー：%REFERER%）"
+"不正なログインに気づきやすくするための機能です。ログインすると、ログインユーザーにメールが送信されます。ログインした心当たりがないのにメールを受信した場合は、不正なログインを疑ってください。サブジェクトとメール本文には、次の変数が使用できます。（サイト名：%SITENAME%、ユーザ名：%USERNAME%、日付：%DATE%、時刻：%TIME%、IPアドレス：%IPADDRESS%、ユーザーエージェント：%USERAGENT%、リファラー：%REFERER%）XML-RPCによるアクセスは通知されません。"
 
 msgid "New login at %SITENAME%"
 msgstr "%SITENAME%にログインがありました"
@@ -532,6 +535,12 @@ msgid "in the server."
 msgstr ""
 "　"
 
+msgid ""
+"In order to enable this function, it is necessary to specify Limit to AllowOverride in httpd.conf."
+msgstr ""
+"この機能を使用するには、httpd.confのAllowOverrideにLimitを指定する必要があります。"
+
+
 #: admin/siteguard-sg-whitelist-table.php:61
 msgid "Directive"
 msgstr "ディレクティブ"
@@ -633,6 +642,99 @@ msgstr "エラー: シグネチャが未入力です。"
 #: classes/siteguard-sg-white-list.php:68
 msgid "ERROR: Syntax Error in Signature"
 msgstr "エラー: シグネチャの指定が正しくありません。"
+
+#: admin/siteguard-menu-init.php:24 admin/siteguard-menu-updates-notify.php:49
+msgid "Updates Notify"
+msgstr "更新通知"
+
+#: admin/siteguard-menu-updates-notify.php:67
+msgid "Plugins updates"
+msgstr "プラグインの更新"
+
+#: admin/siteguard-menu-updates-notify.php:73
+msgid "All plugins"
+msgstr "すべてのプラグイン"
+
+#: admin/siteguard-menu-updates-notify.php:76
+msgid "Active plugins only"
+msgstr "アクティブなプラグインのみ"
+
+#: admin/siteguard-menu-updates-notify.php:79
+msgid "Themes updates"
+msgstr "テーマの更新"
+
+#: admin/siteguard-menu-updates-notify.php:85
+msgid "All themes"
+msgstr "すべてのテーマ"
+
+#: admin/siteguard-menu-updates-notify.php:88
+msgid "Active themes only"
+msgstr "アクティブなテーマのみ"
+
+#: admin/siteguard-menu-updates-notify.php:93
+msgid ""
+"If WordPress core, plugins, and themes updates are needed , sends email to "
+"notify administrators."
+msgstr ""
+"WordPress、プラグイン、テーマの更新が必要になった場合に、管理者にメールで通知します。"
+
+msgid ""
+"Basic of security is that always you use the latest version. If WordPress "
+"core, plugins, and themes updates are needed , sends email to notify "
+"administrators. Check for updates will be run every 24 hours."
+msgstr ""
+"セキュリティの基本は、常に最新のバージョンを使用することです。"
+"WordPress、プラグイン、テーマの更新が必要になった場合に、管理者にメールで通知します。"
+"更新の確認は、24時間毎に実行されます。"
+
+#: classes/siteguard-updates-notify.php:57
+msgid "There are updates available for your WordPress site:"
+msgstr "あなたのWordPressサイトで、実行可能な更新があります。"
+
+#: classes/siteguard-updates-notify.php:58
+msgid "Please visit %s to update."
+msgstr "次のページで、更新を行なって下さい。： %s"
+
+#: classes/siteguard-updates-notify.php:75
+msgid "WP-Core: WordPress is out of date. Please update from version %s to %s"
+msgstr "WordPressの新しいバージョンがあります。%sから%sへ更新してください。"
+
+#: classes/siteguard-updates-notify.php:110
+msgid "Plugin: %s is out of date. Please update from version %s to %s"
+msgstr "プラグイン：%s は、新しいバージョンがあります。%sから%sへ更新してください。"
+
+#: classes/siteguard-updates-notify.php:111
+msgid "Details: %s"
+msgstr "詳細：%s"
+
+#: classes/siteguard-updates-notify.php:112
+msgid "Changelog: %s%s"
+msgstr "更新ログ：%s%s"
+
+#: classes/siteguard-updates-notify.php:123
+msgid "Compatibility: %s"
+msgstr "互換性： %s"
+
+#: classes/siteguard-updates-notify.php:156
+msgid "Theme: %s is out of date. Please update from version %s to %s"
+msgstr "テーマ：%s は、新しいバージョンが有ります。%sから%sへ更新してください。"
+
+#: classes/siteguard-updates-notify.php:201
+msgid "WordPress: Updates Available @ %s"
+msgstr "WordPress: 更新通知 @ %s"
+
+msgid "WordPress updates"
+msgstr "WordPressの更新"
+
+msgid ""
+"DISABLE_WP_CRON is defined true. This function can't be used."
+msgstr ""
+"DISABLE_WP_CRONがtrueと定義されています。この機能は使用できません。"
+
+msgid ""
+"Please solve the problem that can not be accessed wp-cron.php. Might be access control."
+msgstr ""
+"wp-cron.phpにアクセスできない問題を解決してください。アクセス制御が関係している可能性があります。"
 
 #. Plugin URI of the plugin/theme
 #: admin/siteguard-menu-dashboard.php
