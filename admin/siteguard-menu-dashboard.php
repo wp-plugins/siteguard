@@ -20,6 +20,7 @@ class SiteGuard_Menu_Dashboard extends SiteGuard_Base {
 		$loginalert_enable       = $config->get( 'loginalert_enable' );
 		$fail_once_enable        = $config->get( 'loginlock_fail_once' );
 		$disable_pingback_enable = $config->get( 'disable_pingback_enable' );
+		$updates_notify_enable   = $config->get( 'updates_notify_enable' );
 		$waf_exclude_rule_enable = $config->get( 'waf_exclude_rule_enable' );
 		echo '<div class="wrap">';
 		echo '<img src="' . $img_path . 'sg_wp_plugin_logo_40.png" alt="SiteGuard Logo" />';
@@ -70,6 +71,11 @@ class SiteGuard_Menu_Dashboard extends SiteGuard_Base {
 		<img src=<?php echo '"' . $img_path . ( $disable_pingback_enable == '1' ? 'yes.png" alt="yes"' : 'yes_glay.png" alt="no"' ) ?>>
 		<a href="?page=siteguard_disable_pingback"><?php esc_html_e( 'Disable Pingback', 'siteguard' ) ?></a></th>
 		<td><?php esc_html_e( 'The abuse of pingback is prevented.', 'siteguard' ) ?></td>
+		</tr><tr>
+		<th scpoe="row">
+		<img src=<?php echo '"' . $img_path . ( $updates_notify_enable == '1' ? 'yes.png" alt="yes"' : 'yes_glay.png" alt="no"' ) ?>>
+		<a href="?page=siteguard_updates_notify"><?php esc_html_e( 'Updates Notify', 'siteguard' ) ?></a></th>
+		<td><?php esc_html_e( 'If WordPress core, plugins, and themes updates are needed , sends email to notify administrators.', 'siteguard' ) ?></td>
 		</tr><tr>
 		<th scpoe="row">
 		<img src=<?php echo '"' . $img_path . ( $waf_exclude_rule_enable == '1' ? 'yes.png" alt="yes"' : 'yes_glay.png" alt="no"' ) ?>>

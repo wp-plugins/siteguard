@@ -6,6 +6,7 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 		define( 'SITEGUARD_TABLE_HISTORY', 'siteguard_history' );
 		add_action( 'wp_login', array( $this, 'handler_wp_login' ), 1, 2 );
 		add_action( 'wp_login_failed', array( $this, 'handler_wp_login_failed' ), 30 );
+		add_action( 'xmlrpc_call', array( $this, 'handler_xmlrpc_call' ), 10, 1 );
 	}
 	function init( ) {
 		global $wpdb;
@@ -38,6 +39,10 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 		global $loginlock;
 		$this->add_operation( $loginlock->get_status( ), $username );
 	}
+	function handler_xmlrpc_call( $method ) {
+		$current_user = wp_get_current_user( );
+		$this->add_operation( SITEGUARD_LOGIN_SUCCESS, $current_user->user_login );
+	}
 	function is_exist( $user, $operation, $after_sec, $less_sec ) {
 		global $wpdb;
 
@@ -47,7 +52,8 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 
 		$table_name = $wpdb->prefix . SITEGUARD_TABLE_HISTORY;
 		$ip_address = $_SERVER['REMOTE_ADDR'];
-		$id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $table_name WHERE ip_address = %s AND login_name = %s AND operation = %d AND time BETWEEN NOW() - INTERVAL %d SECOND AND NOW() - INTERVAL %d SECOND; ", $ip_address, $user, $operation, $less_sec, $after_sec ) );
+		$now = current_time( 'mysql' );
+		$id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $table_name WHERE ip_address = %s AND login_name = %s AND operation = %d AND time BETWEEN %s - INTERVAL %d SECOND AND %s - INTERVAL %d SECOND; ", $ip_address, $user, $operation, $now, $less_sec, $now, $after_sec ) );
 		if ( null == $id ) {
 			return false;
 		}

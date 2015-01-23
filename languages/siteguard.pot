@@ -1,14 +1,14 @@
-# Copyright (C) 2014 SiteGuard WP Plugin
+# Copyright (C) 2015 SiteGuard WP Plugin
 # This file is distributed under the same license as the SiteGuard WP Plugin package.
 msgid ""
 msgstr ""
-"Project-Id-Version: SiteGuard WP Plugin 1.1.1\n"
+"Project-Id-Version: SiteGuard WP Plugin 1.2.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/siteguard\n"
-"POT-Creation-Date: 2014-12-17 02:35:22+00:00\n"
+"POT-Creation-Date: 2015-01-23 07:41:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -43,6 +43,7 @@ msgstr ""
 #: admin/siteguard-menu-login-lock.php:44
 #: admin/siteguard-menu-rename-login.php:29
 #: admin/siteguard-menu-same-error.php:26
+#: admin/siteguard-menu-updates-notify.php:32
 #: admin/siteguard-menu-waf-tuning-support.php:143
 #: classes/siteguard-waf-exclude-rule.php:48
 #: classes/siteguard-waf-exclude-rule.php:141
@@ -58,11 +59,12 @@ msgstr ""
 #: admin/siteguard-menu-login-lock.php:59
 #: admin/siteguard-menu-rename-login.php:74
 #: admin/siteguard-menu-same-error.php:35
+#: admin/siteguard-menu-updates-notify.php:61
 msgid "Options saved."
 msgstr ""
 
 #: admin/siteguard-menu-admin-filter.php:67
-#: admin/siteguard-menu-dashboard.php:36 admin/siteguard-menu-init.php:16
+#: admin/siteguard-menu-dashboard.php:37 admin/siteguard-menu-init.php:16
 msgid "Admin Page IP Filter"
 msgstr ""
 
@@ -74,6 +76,7 @@ msgstr ""
 #: admin/siteguard-menu-login-lock.php:71
 #: admin/siteguard-menu-rename-login.php:86
 #: admin/siteguard-menu-same-error.php:47
+#: admin/siteguard-menu-updates-notify.php:73
 #: admin/siteguard-menu-waf-tuning-support.php:194
 msgid "Enable/Disable"
 msgstr ""
@@ -86,6 +89,7 @@ msgstr ""
 #: admin/siteguard-menu-login-lock.php:76
 #: admin/siteguard-menu-rename-login.php:91
 #: admin/siteguard-menu-same-error.php:52
+#: admin/siteguard-menu-updates-notify.php:78
 #: admin/siteguard-menu-waf-tuning-support.php:199
 msgid "ON"
 msgstr ""
@@ -98,6 +102,7 @@ msgstr ""
 #: admin/siteguard-menu-login-lock.php:79
 #: admin/siteguard-menu-rename-login.php:94
 #: admin/siteguard-menu-same-error.php:55
+#: admin/siteguard-menu-updates-notify.php:81
 #: admin/siteguard-menu-waf-tuning-support.php:202
 msgid "OFF"
 msgstr ""
@@ -123,7 +128,7 @@ msgid ""
 "where this function is excluded can be specified."
 msgstr ""
 
-#: admin/siteguard-menu-captcha.php:68 admin/siteguard-menu-dashboard.php:46
+#: admin/siteguard-menu-captcha.php:68 admin/siteguard-menu-dashboard.php:47
 #: admin/siteguard-menu-init.php:18
 msgid "CAPTCHA"
 msgstr ""
@@ -144,6 +149,9 @@ msgstr ""
 
 #: admin/siteguard-menu-captcha.php:103 admin/siteguard-menu-captcha.php:115
 #: admin/siteguard-menu-captcha.php:127 admin/siteguard-menu-captcha.php:139
+#: admin/siteguard-menu-updates-notify.php:97
+#: admin/siteguard-menu-updates-notify.php:106
+#: admin/siteguard-menu-updates-notify.php:118
 msgid "Disable"
 msgstr ""
 
@@ -167,114 +175,125 @@ msgid ""
 "alphanumeric characters can be selected."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:26 admin/siteguard-menu-init.php:15
+#: admin/siteguard-menu-dashboard.php:27 admin/siteguard-menu-init.php:15
 msgid "Dashboard"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:28
+#: admin/siteguard-menu-dashboard.php:29
 msgid ""
 "You can find docs, FAQ and more detailed information about SiteGuard WP "
 "Plugin on "
 msgstr ""
 
-#. #-#-#-#-#  siteguard.pot (SiteGuard WP Plugin 1.1.1)  #-#-#-#-#
+#. #-#-#-#-#  siteguard.pot (SiteGuard WP Plugin 1.2.0)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#: admin/siteguard-menu-dashboard.php:29
+#: admin/siteguard-menu-dashboard.php:30
 msgid ""
 "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index_en.html"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:29
+#: admin/siteguard-menu-dashboard.php:30
 msgid "SiteGuard WP Plugin Page"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:29
+#: admin/siteguard-menu-dashboard.php:30
 msgid "."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:30
+#: admin/siteguard-menu-dashboard.php:31
 msgid "Setting status"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:37
+#: admin/siteguard-menu-dashboard.php:38
 msgid ""
 "The management directory (/wp-admin/) is protected against the connection "
 "source which does not login."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:41 admin/siteguard-menu-init.php:17
+#: admin/siteguard-menu-dashboard.php:42 admin/siteguard-menu-init.php:17
 #: admin/siteguard-menu-rename-login.php:81
 msgid "Rename Login"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:42
+#: admin/siteguard-menu-dashboard.php:43
 msgid "The login page name is changed."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:47
+#: admin/siteguard-menu-dashboard.php:48
 msgid "CAPTCHA is added to the login page or comment post."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:51 admin/siteguard-menu-init.php:19
+#: admin/siteguard-menu-dashboard.php:52 admin/siteguard-menu-init.php:19
 #: admin/siteguard-menu-same-error.php:42
 msgid "Same Login Error Message"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:52
+#: admin/siteguard-menu-dashboard.php:53
 msgid ""
 "Instead of the detailed error message at the login error, the single message "
 "is returned."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:56 admin/siteguard-menu-init.php:20
+#: admin/siteguard-menu-dashboard.php:57 admin/siteguard-menu-init.php:20
 #: admin/siteguard-menu-login-lock.php:66
 msgid "Login Lock"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:57
+#: admin/siteguard-menu-dashboard.php:58
 msgid ""
 "The connection source which repeats login failure is being locked within a "
 "certain period."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:61 admin/siteguard-menu-init.php:21
+#: admin/siteguard-menu-dashboard.php:62 admin/siteguard-menu-init.php:21
 #: admin/siteguard-menu-login-alert.php:49
 msgid "Login Alert"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:62
+#: admin/siteguard-menu-dashboard.php:63
 msgid "E-mail notifies that there was login."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:66 admin/siteguard-menu-fail-once.php:41
-#: admin/siteguard-menu-init.php:22 classes/siteguard-login-history.php:95
+#: admin/siteguard-menu-dashboard.php:67 admin/siteguard-menu-fail-once.php:41
+#: admin/siteguard-menu-init.php:22 classes/siteguard-login-history.php:100
 msgid "Fail once"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:67
+#: admin/siteguard-menu-dashboard.php:68
 msgid "The first login must fail even if the input is correct."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:71
+#: admin/siteguard-menu-dashboard.php:72
 #: admin/siteguard-menu-disable-pingback.php:32
 #: admin/siteguard-menu-init.php:23
 msgid "Disable Pingback"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:72
+#: admin/siteguard-menu-dashboard.php:73
 msgid "The abuse of pingback is prevented."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:76 admin/siteguard-menu-init.php:24
+#: admin/siteguard-menu-dashboard.php:77 admin/siteguard-menu-init.php:24
+#: admin/siteguard-menu-updates-notify.php:68
+msgid "Updates Notify"
+msgstr ""
+
+#: admin/siteguard-menu-dashboard.php:78
+msgid ""
+"If WordPress core, plugins, and themes updates are needed , sends email to "
+"notify administrators."
+msgstr ""
+
+#: admin/siteguard-menu-dashboard.php:82 admin/siteguard-menu-init.php:25
 #: admin/siteguard-menu-waf-tuning-support.php:189
 msgid "WAF Tuning Support"
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:77
+#: admin/siteguard-menu-dashboard.php:83
 msgid "The exclude rule for WAF (SiteGuard Lite) is created."
 msgstr ""
 
-#: admin/siteguard-menu-dashboard.php:82
+#: admin/siteguard-menu-dashboard.php:88
 msgid "Login history"
 msgstr ""
 
@@ -323,7 +342,8 @@ msgid ""
 "there is no logged-in idea, please suspect unauthorized login. The subject "
 "and the mail body, the following variables can be used. (Site Name:%SITENAME"
 "%, User Name:%USERNAME%, DATE:%DATE%, Time:%TIME%, IP Address:%IPADDRESS%, "
-"User-Agent:%USERAGENT%, Referer:%REFERER%)"
+"User-Agent:%USERAGENT%, Referer:%REFERER%) Access by the XML-RPC will not be "
+"notified."
 msgstr ""
 
 #: admin/siteguard-menu-login-lock.php:84
@@ -421,6 +441,45 @@ msgid ""
 "examine if a user name exists. All error messages about the login should be "
 "equalized. The single error message is displayed even if anyone of a "
 "username, password, or CAPTCHA is wrong."
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:94
+msgid "WordPress updates"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:100
+msgid "Enable"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:103
+msgid "Plugins updates"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:109
+msgid "All plugins"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:112
+msgid "Active plugins only"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:115
+msgid "Themes updates"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:121
+msgid "All themes"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:124
+msgid "Active themes only"
+msgstr ""
+
+#: admin/siteguard-menu-updates-notify.php:129
+msgid ""
+"Basic of security is that always you use the latest version. If WordPress "
+"core, plugins, and themes updates are needed , sends email to notify "
+"administrators. Check for updates will be run every 24 hours."
 msgstr ""
 
 #: admin/siteguard-menu-waf-tuning-support.php:74
@@ -550,33 +609,39 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: classes/siteguard-captcha.php:60
+#: classes/siteguard-captcha.php:71
 msgid ""
 "In order to enable this function, it is necessary to install expanded modules"
 msgstr ""
 
-#: classes/siteguard-captcha.php:71
+#: classes/siteguard-captcha.php:82
 msgid "in the server."
 msgstr ""
 
-#: classes/siteguard-captcha.php:77 classes/siteguard-login-lock.php:93
+#: classes/siteguard-captcha.php:98
+msgid ""
+"In order to enable this function, it is necessary to specify Limit to "
+"AllowOverride in httpd.conf."
+msgstr ""
+
+#: classes/siteguard-captcha.php:103 classes/siteguard-login-lock.php:93
 msgid "ERROR: LOGIN LOCKED"
 msgstr ""
 
-#: classes/siteguard-captcha.php:77 classes/siteguard-login-lock.php:121
+#: classes/siteguard-captcha.php:103 classes/siteguard-login-lock.php:125
 msgid "ERROR: Please login entry again"
 msgstr ""
 
-#: classes/siteguard-captcha.php:78
+#: classes/siteguard-captcha.php:104
 msgid "ERROR: Please check the input and resend."
 msgstr ""
 
-#: classes/siteguard-captcha.php:113
+#: classes/siteguard-captcha.php:139
 msgid "Please input characters displayed above."
 msgstr ""
 
-#: classes/siteguard-captcha.php:159 classes/siteguard-captcha.php:165
-#: classes/siteguard-captcha.php:188 classes/siteguard-captcha.php:203
+#: classes/siteguard-captcha.php:183 classes/siteguard-captcha.php:187
+#: classes/siteguard-captcha.php:204 classes/siteguard-captcha.php:215
 msgid "ERROR: Invalid CAPTCHA."
 msgstr ""
 
@@ -597,19 +662,19 @@ msgid ""
 "SiteGuard WP Plugin"
 msgstr ""
 
-#: classes/siteguard-login-history.php:89
+#: classes/siteguard-login-history.php:94
 msgid "Failed"
 msgstr ""
 
-#: classes/siteguard-login-history.php:92
+#: classes/siteguard-login-history.php:97
 msgid "Success"
 msgstr ""
 
-#: classes/siteguard-login-history.php:98
+#: classes/siteguard-login-history.php:103
 msgid "Locked"
 msgstr ""
 
-#: classes/siteguard-login-history.php:101
+#: classes/siteguard-login-history.php:106
 msgid "Unknown"
 msgstr ""
 
@@ -627,6 +692,66 @@ msgid ""
 "SiteGuard WP Plugin"
 msgstr ""
 
+#: classes/siteguard-updates-notify.php:43
+msgid "DISABLE_WP_CRON is defined true. This function can't be used."
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:54
+msgid ""
+"Please solve the problem that can not be accessed wp-cron.php. Might be "
+"access control."
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:91
+msgid "There are updates available for your WordPress site:"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:92
+msgid "Please visit %s to update."
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:109
+msgid "WP-Core: WordPress is out of date. Please update from version %s to %s"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:144
+msgid "Plugin: %s is out of date. Please update from version %s to %s"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:145
+msgid "Details: %s"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:146
+msgid "Changelog: %s%s"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:148
+msgid "Compatibility with WordPress %1$s: 100%% (according to its author)"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:152
+msgid ""
+"Compatibility with WordPress %1$s: %2$d%% (%3$d \"works\" votes out of %4$d "
+"total)"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:155
+msgid "Compatibility with WordPress %1$s: Unknown"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:157
+msgid "Compatibility: %s"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:190
+msgid "Theme: %s is out of date. Please update from version %s to %s"
+msgstr ""
+
+#: classes/siteguard-updates-notify.php:240
+msgid "WordPress: Updates Available @ %s"
+msgstr ""
+
 #: classes/siteguard-waf-exclude-rule.php:51
 msgid "ERROR: Signature is required"
 msgstr ""
@@ -635,23 +760,23 @@ msgstr ""
 msgid "ERROR: Syntax Error in Signature"
 msgstr ""
 
-#: siteguard.php:132
+#: siteguard.php:141
 msgid "Login page URL was changed."
 msgstr ""
 
-#: siteguard.php:134
+#: siteguard.php:143
 msgid " Please bookmark "
 msgstr ""
 
-#: siteguard.php:135
+#: siteguard.php:144
 msgid "new login URL"
 msgstr ""
 
-#: siteguard.php:136
+#: siteguard.php:145
 msgid ". Setting change is "
 msgstr ""
 
-#: siteguard.php:137
+#: siteguard.php:146
 msgid "here"
 msgstr ""
 

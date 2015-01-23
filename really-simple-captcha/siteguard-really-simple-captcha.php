@@ -347,6 +347,8 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 	 * @return bool True on successful create, false on failure.
 	 */
 	public function make_tmp_dir() {
+		global $config;
+
 		$dir = trailingslashit( $this->tmp_dir );
 		$dir = $this->normalize_path( $dir );
 
@@ -355,16 +357,28 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 
 		$htaccess_file = $this->normalize_path( $dir . '.htaccess' );
 
-		if ( file_exists( $htaccess_file ) )
-			return true;
+		// add 'Satisfy Any' in .htaccess from version 1.2.0
+		if ( version_compare( $config->get( 'version' ), '1.2.0' ) < 0 ) {
+			@unlink( $htaccess_file );
+		}
 
-		if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
-			fwrite( $handle, 'Order deny,allow' . "\n" );
-			fwrite( $handle, 'Deny from all' . "\n" );
-			fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );
-			fwrite( $handle, '    Allow from all' . "\n" );
-			fwrite( $handle, '</Files>' . "\n" );
-			fclose( $handle );
+		if ( ! file_exists( $htaccess_file ) ) {
+			if ( $handle = @fopen( $htaccess_file, 'w' ) ) {
+				fwrite( $handle, 'Order deny,allow' . "\n" );
+				fwrite( $handle, 'Deny from all' . "\n" );
+				fwrite( $handle, '<Files ~ "^[0-9A-Za-z]+\\.(jpeg|gif|png)$">' . "\n" );
+				fwrite( $handle, '    Allow from all' . "\n" );
+				fwrite( $handle, '    Satisfy Any' . "\n" );
+				fwrite( $handle, '</Files>' . "\n" );
+				fclose( $handle );
+			}
+		}
+
+		$dmy_src_file = SITEGUARD_PATH . 'images/dummy.png';
+		$dmy_dst_file = $dir . 'dummy.png';
+
+		if ( ! file_exists( $dmy_dst_file ) ) {
+			copy( $dmy_src_file, $dmy_dst_file );
 		}
 
 		return true;

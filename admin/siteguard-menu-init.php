@@ -21,6 +21,7 @@ class SiteGuard_Menu_INIT extends SiteGuard_Base {
 		add_submenu_page( 'siteguard', esc_html__( 'Login Alert', 'siteguard' ),              esc_html__( 'Login Alert', 'siteguard' ),              'manage_options', 'siteguard_login_alert',        array( $this, 'menu_login_alert' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'Fail once', 'siteguard' ),                esc_html__( 'Fail once', 'siteguard' ),                'manage_options', 'siteguard_fail_once',          array( $this, 'menu_fail_once' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'Disable Pingback', 'siteguard' ),         esc_html__( 'Disable Pingback', 'siteguard' ),         'manage_options', 'siteguard_disable_pingback',   array( $this, 'menu_disable_pingback' ) );
+		add_submenu_page( 'siteguard', esc_html__( 'Updates Notify', 'siteguard' ),           esc_html__( 'Updates Notify', 'siteguard' ),           'manage_options', 'siteguard_updates_notify',     array( $this, 'menu_updates_notify' ) );
 		add_submenu_page( 'siteguard', esc_html__( 'WAF Tuning Support', 'siteguard' ),       esc_html__( 'WAF Tuning Support', 'siteguard' ),       'manage_options', 'siteguard_waf_tuning_support', array( $this, 'menu_waf_tuning_support' ) );
 	}
 
@@ -59,6 +60,10 @@ class SiteGuard_Menu_INIT extends SiteGuard_Base {
 	function menu_disable_pingback( ) {
 		include( 'siteguard-menu-disable-pingback.php' );
 		$disable_pingback_menu = new SiteGuard_Menu_Disable_Pingback( );
+	}
+	function menu_updates_notify( ) {
+		include( 'siteguard-menu-updates-notify.php' );
+		$waf_updates_notify_menu = new SiteGuard_Menu_Updates_Notify( );
 	}
 	function menu_waf_tuning_support( ) {
 		include( 'siteguard-menu-waf-tuning-support.php' );

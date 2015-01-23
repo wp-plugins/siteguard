@@ -4,13 +4,15 @@ Donate link: -
 Tags: security, waf, brute force, password list, login lock, login alert, captcha, pingback, fail once
 Requires at least: 3.9
 Tested up to: 4.1
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 SiteGurad WP Plugin is the plugin specialized for the protection against the attack to the management page and login.
 
 == Description ==
+
+You can find docs, FAQ and more detailed information on [English Page](http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index_en.html) [Japanese Page](http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index.html).
 
 Simply install the SiteGuard WP Plugin, WordPress security is improved. 
 This plugin is a security plugin that specializes in the login attack of brute force, such as protection and management capabilities.
@@ -64,6 +66,10 @@ After 5 seconds and later within 60 seconds, another correct login input make lo
 
 The pingback function is disabled and its abuse is prevented.
 
+* Updates Notify
+
+Basic of security is that always you use the latest version. If WordPress core, plugins, and themes updates are needed , sends email to notify administrators.
+
 * WAF Tuning Support
 
 It is the function to create the rule to avoid the false detection in WordPress (including 403 error occurrence with normal access,)
@@ -92,9 +98,14 @@ If you have created your own language pack, or have an update of an existing one
 
 == Frequently Asked Questions ==
 
-http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html
+[English Page](http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq_en.html)
+[Japanese Page](http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq.html)
 
 == Changelog ==
+= 1.2.0 =
+* Add the "Updates Notify" feature
+* Fix bug that login via XML-RPC to fail, if the CAPTCHA is enabled
+* Fix bug that sometimes can't login when you enable the Fail once
 = 1.1.2 =
 * Supported with WP 4.1
 * Disabling the Admin IP Filter function by default 
