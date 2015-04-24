@@ -4,7 +4,7 @@ Donate link: -
 Tags: security, waf, brute force, password list, login lock, login alert, captcha, pingback, fail once
 Requires at least: 3.9
 Tested up to: 4.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,8 @@ If you have created your own language pack, or have an update of an existing one
 [Japanese Page](http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq.html)
 
 == Changelog ==
+= 1.2.1 =
+* Supported with WP 4.2
 = 1.2.0 =
 * Add the "Updates Notify" feature
 * Fix bug that login via XML-RPC to fail, if the CAPTCHA is enabled
