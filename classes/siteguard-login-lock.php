@@ -14,7 +14,11 @@ class SiteGuard_LoginLock extends SiteGuard_Base {
 	}
 	function init( ) {
 		global $config;
-		$config->set( 'loginlock_enable',     '1' );
+		if ( true === check_multisite( ) ) {
+			$config->set( 'loginlock_enable',     '1' );
+		} else {
+			$config->set( 'loginlock_enable',     '0' );
+		}
 		$config->set( 'loginlock_interval',   '5' );
 		$config->set( 'loginlock_threshold',  '3' );
 		$config->set( 'loginlock_locksec',    '60' );

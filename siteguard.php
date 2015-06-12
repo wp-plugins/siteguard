@@ -7,7 +7,7 @@ Author: JP-Secure
 Author URI: http://www.jp-secure.com/eng/
 Text Domain: siteguard
 Domain Path: /languages/
-Version: 1.2.1
+Version: 1.2.2
 */
 
 /*  Copyright 2014 JP-Secure Inc
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SITEGUARD_VERSION', '1.2.1' );
+define( 'SITEGUARD_VERSION', '1.2.2' );
 
 define( 'SITEGUARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SITEGUARD_URL_PATH', plugin_dir_url( __FILE__ ) );
@@ -118,7 +118,8 @@ class SiteGuard extends SiteGuard_Base {
 	function __construct( ) {
 		global $config;
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-		if ( is_admin( ) )  {
+		$this->htaccess_check( );
+		if ( is_admin( ) ) {
 			$this->menu_init = new SiteGuard_Menu_Init( );
 			add_action( 'admin_init', array( $this, 'upgrade' ) );
 			if ( '0' === $config->get( 'show_admin_notices' ) && '1' == $config->get( 'renamelogin_enable' ) ) {
@@ -134,6 +135,27 @@ class SiteGuard extends SiteGuard_Base {
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
+	}
+	function htaccess_check( ) {
+		global $config;
+		if ( '1' == $config->get( 'admin_filter_enable' ) ) {
+			if ( ! SiteGuard_Htaccess::is_exists_setting( SiteGuard_AdminFilter::get_mark( ) ) ) {
+				$config->set( 'admin_filter_enable', '0' );
+				$config->update( );
+			}
+		}
+		if ( '1' == $config->get( 'renamelogin_enable' ) ) {
+			if ( ! SiteGuard_Htaccess::is_exists_setting( SiteGuard_RenameLogin::get_mark( ) ) ) {
+				$config->set( 'renamelogin_enable', '0' );
+				$config->update( );
+			}
+		}
+		if ( '1' == $config->get( 'waf_exclude_rule_enable' ) ) {
+			if ( ! SiteGuard_Htaccess::is_exists_setting( SiteGuard_WAF_Exclude_Rule::get_mark( ) ) ) {
+				$config->set( 'waf_exclude_rule_enable', '0' );
+				$config->update( );
+			}
+		}
 	}
 	function admin_notices( ) {
 		global $rename_login;
@@ -174,7 +196,7 @@ class SiteGuard extends SiteGuard_Base {
 		if ( version_compare( $old_version, '1.2.0' ) < 0 ) {
 			$updates_notify->init();
 		}
-		if ( $upgrade_ok && $old_version != SITEGUARD_VERSION ) {
+		if ( $upgrade_ok && SITEGUARD_VERSION != $old_version ) {
 			$config->set( 'version', SITEGUARD_VERSION );
 			$config->update( );
 		}

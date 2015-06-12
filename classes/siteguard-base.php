@@ -17,6 +17,15 @@ function siteguard_error_dump( $title, $obj ) {
 	siteguard_error_log( "$title: $msg" );
 }
 
+function check_multisite( ) {
+	if ( ! is_multisite() ) {
+		return true;
+	}
+	$message  = esc_html__( 'It does not support the multisite function of WordPress.', 'siteguard' );
+	$error = new WP_Error( 'siteguard', $message );
+	return $error;
+}
+
 class SiteGuard_Base {
 	function __construct() {
 	}
@@ -27,11 +36,13 @@ class SiteGuard_Base {
 		return false;
 	}
 	function check_module( $name, $default = false ) {
-		if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
-			return ( strpos( $_SERVER['SERVER_SOFTWARE'], 'Apache' ) !== false || strpos( $_SERVER['SERVER_SOFTWARE'], 'LiteSpeed' ) !== false);
-		} else {
-			return $default;
-		}
+		return true;
+		# It does not work WP-CLI
+		#if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
+		#	return ( strpos( $_SERVER['SERVER_SOFTWARE'], 'Apache' ) !== false || strpos( $_SERVER['SERVER_SOFTWARE'], 'LiteSpeed' ) !== false);
+		#} else {
+		#	return $default;
+		#}
 
 		# It does not work in FastCGI well.
 		#$module = 'mod_' . $name;

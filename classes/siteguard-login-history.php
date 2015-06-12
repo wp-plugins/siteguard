@@ -41,6 +41,9 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 	}
 	function handler_xmlrpc_call( $method ) {
 		$current_user = wp_get_current_user( );
+		if ( '' == $current_user->user_login ) {
+			return;
+		}
 		$this->add_operation( SITEGUARD_LOGIN_SUCCESS, $current_user->user_login );
 	}
 	function is_exist( $user, $operation, $after_sec, $less_sec ) {
@@ -63,7 +66,7 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 		global $current_user;
 		global $wpdb;
 
-		if ( $user_login != '' ) {
+		if ( '' != $user_login ) {
 			$user = $user_login;
 		} else {
 			get_currentuserinfo();
@@ -74,7 +77,7 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 		$wpdb->query( 'START TRANSACTION' );
 		// delete old event
 		$id = $wpdb->get_var( "SELECT id FROM $table_name ORDER BY id DESC LIMIT 9999,1;", 0, 0 );
-		if ( $id != null ) {
+		if ( null != $id ) {
 			$wpdb->query( "DELETE FROM $table_name WHERE id < $id;" );
 		}
 		$ip_address = $_SERVER['REMOTE_ADDR'];
@@ -82,7 +85,7 @@ class SiteGuard_LoginHistory extends SiteGuard_Base {
 			'operation'  => $operation,
 			'login_name' => $user,
 			'ip_address' => $ip_address,
-			'time'       => current_time( 'mysql' )
+			'time'       => current_time( 'mysql' ),
 		);
 		$wpdb->insert( $table_name, $data );
 

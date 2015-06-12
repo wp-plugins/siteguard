@@ -35,6 +35,44 @@ class SiteGuard_Htaccess extends SiteGuard_Base {
 
 		return true;
 	}
+	static function is_exists_setting( $mark ) {
+		$result = false;
+		if ( '' == $mark ) {
+			$mark_start = SiteGuard_Htaccess::$htaccess_mark_start;
+			$mark_end   = SiteGuard_Htaccess::$htaccess_mark_end;
+		} else {
+			$mark_start = $mark . '_START';
+			$mark_end   = $mark . '_END';
+		}
+		$current_file = SiteGuard_Htaccess::get_htaccess_file( );
+		if ( ! file_exists( $current_file ) ) {
+			return $result;
+		}
+		$fr = @fopen( $current_file, 'r' );
+		if ( null == $fr ) {
+			return $result;
+		}
+		$line_num = 0;
+		$start_line = 0;
+		$end_line = 0;
+		while ( ! feof( $fr ) ) {
+			$line = fgets( $fr, 4096 );
+			$line_num++;
+			if ( false !== strpos( $line, $mark_start ) ) {
+				$start_line = $line_num;
+			}
+			if ( false !== strpos( $line, $mark_end ) ) {
+				$end_line = $line_num;
+				if ( $start_line > 0 && ( $end_line - $start_line ) > 1 ) {
+					$result = true;
+				}
+				break;
+			}
+		}
+		@fclose( $fr );
+
+		return $result;
+	}
 	static function clear_settings( $mark ) {
 		if ( ! SiteGuard_Htaccess::make_tmp_dir( ) ) {
 			return false;

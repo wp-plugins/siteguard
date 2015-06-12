@@ -45,7 +45,7 @@ class SiteGuard_LoginHistory_Table extends WP_List_Table {
 			'time'       => array( 'id', true ),    //true means it's already sorted
 			'operation'  => array( 'operation', false ), //true means it's already sorted
 			'login_name' => array( 'login_name', false ),
-			'ip_address' => array( 'ip_address', false )
+			'ip_address' => array( 'ip_address', false ),
 		);
 		return $sortable_columns;
 	}
@@ -63,7 +63,7 @@ class SiteGuard_LoginHistory_Table extends WP_List_Table {
 		return;
 	}
 
-	function usort_reorder( $a, $b ){
+	function usort_reorder( $a, $b ) {
 		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'id'; //If no sort, default to id
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'desc'; //If no order, default to desc
 		if ( 'id' == $orderby ) {
@@ -102,7 +102,7 @@ class SiteGuard_LoginHistory_Table extends WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,                     //WE have to calculate the total number of items
 			'per_page'    => $per_page,                        //WE have to determine how many items to show on a page
-			'total_pages' => ceil( $total_items / $per_page )  //WE have to calculate the total number of pages
+			'total_pages' => ceil( $total_items / $per_page ), //WE have to calculate the total number of pages
 		) );
 	}
 }

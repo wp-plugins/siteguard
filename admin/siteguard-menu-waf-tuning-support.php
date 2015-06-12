@@ -59,7 +59,12 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 			switch ( $update ) {
 				case 'add':
 					if ( check_admin_referer( 'siteguard-menu-waf-tuning-support-add' ) ) {
-						if ( ! isset( $_POST['filename'] )  || ! isset( $_POST['sig'] ) || ! isset( $_POST['comment'] ) ) {
+						$error = false;
+						$errors = check_multisite( );
+						if ( is_wp_error( $errors ) ) {
+							$error = true;
+						}
+						if ( true == $error || ! isset( $_POST['filename'] )  || ! isset( $_POST['sig'] ) || ! isset( $_POST['comment'] ) ) {
 							// error
 						} else {
 							$filename  = $this->set_filename( stripslashes( $_POST['filename'] ) );
@@ -129,7 +134,11 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 							// error
 						} else {
 				                        $error = false;
-							if ( '1' == $_POST['waf_exclude_rule_enable'] && false == $this->check_module( 'siteguard' ) ) {
+							$errors = check_multisite( );
+							if ( is_wp_error( $errors ) ) {
+								$error = true;
+							}
+							if ( false == $error && '1' == $_POST['waf_exclude_rule_enable'] && false == $this->check_module( 'siteguard' ) ) {
 								echo '<div class="error settings-error"><p><strong>';
 								esc_html_e( 'To use the WAF exclude rule, WAF ( SiteGuard Lite ) should be installed on Apache.', 'siteguard' );
 								echo '</strong></p></div>';
@@ -138,7 +147,7 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 								$waf_exclude_rule->feature_off( );
 								$waf_exclude_rule_enable = '0';
 							}
-							if ( false == $this->is_switch_value( $_POST['waf_exclude_rule_enable'] ) ) {
+							if ( false == $error && false == $this->is_switch_value( $_POST['waf_exclude_rule_enable'] ) ) {
 								echo '<div class="error settings-error"><p><strong>';
 								esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 								echo '</strong></p></div>';
@@ -187,12 +196,19 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 		switch ( $action ) {
 			case 'list':
 				echo '<h2>' . esc_html__( 'WAF Tuning Support', 'siteguard' ) . ' <a href="?page=siteguard_waf_tuning_support&action=add" class="add-new-h2">' . esc_html__( 'Add New', 'siteguard' ) . '</a></h2>';
+				echo '<div class="siteguard-description">'
+				. esc_html__( 'You can find docs about this function on ', 'siteguard' )
+				. '<a href="' . esc_html__( 'http://www.jp-secure.com/cont/products/siteguard_wp_plugin/waf_tuning_support_en.html', 'siteguard' ) 
+				. '" target="_blank">' 
+				. esc_html__( 'here', 'siteguard' ) 
+				. '</a>' 
+				. esc_html__( '.', 'siteguard' ) 
+				. '</div>';
 				?>
 				<form name="form1" method="post" action="">
 				<table class="form-table">
 				<tr>
-				<th scope="row"><?php esc_html_e( 'Enable/Disable', 'siteguard' ) ?></th>
-				<td>
+				<th scope="row" colspan="2">
 					<ul class="siteguard-radios">
 					<li>
 					<input type="radio" name="waf_exclude_rule_enable" id="waf_exclude_rule_enable_on" value="1" <?php echo ( '1' == $waf_exclude_rule_enable ? 'checked' : '' ) ?> >
@@ -203,11 +219,17 @@ class SiteGuard_Menu_WAF_Tuning_Support extends SiteGuard_Base {
 					</li>
 					</ul>
 					<?php
+					$error = check_multisite( );
+					if ( is_wp_error( $error ) ) {
+						echo '<p class="description">';
+						echo $error->get_error_message( );
+						echo '</p>';
+					}
 					echo '<p class="description">';
 					esc_html_e( 'To use the WAF Tuning Support, WAF ( SiteGuard Lite ) should be installed on Apache.', 'siteguard' );
 					echo '</p>';
 					?>
-				</td>
+				</th>
 				</table>
 				<?php
 				$this->wp_list_table->display( );

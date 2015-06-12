@@ -4,7 +4,7 @@ Donate link: -
 Tags: security, waf, brute force, password list, login lock, login alert, captcha, pingback, fail once
 Requires at least: 3.9
 Tested up to: 4.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,10 @@ If you have created your own language pack, or have an update of an existing one
 [Japanese Page](http://www.jp-secure.com/cont/products/siteguard_wp_plugin/faq.html)
 
 == Changelog ==
+= 1.2.2 =
+* Fix bug that XML-RPC access which doesn't need login is recorded as the nameless login history
+* Disabling the all functions when installed in multisite environment
+* Disabling the several functions when settings of .htaccess was eliminated
 = 1.2.1 =
 * Supported with WP 4.2
 = 1.2.0 =
