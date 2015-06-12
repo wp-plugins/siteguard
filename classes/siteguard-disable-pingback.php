@@ -10,7 +10,11 @@ class SiteGuard_Disable_Pingback extends SiteGuard_Base {
 	}
 	function init( ) {
 		global $config;
-		$config->set( 'disable_pingback_enable', '1' );
+		if ( true === check_multisite( ) ) {
+			$config->set( 'disable_pingback_enable', '1' );
+		} else {
+			$config->set( 'disable_pingback_enable', '0' );
+		}
 		$config->update( );
 	}
 	function handler_xmlrpc_methods( $methods ) {

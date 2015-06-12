@@ -43,6 +43,10 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		}
 	}
 	function check_requirements( ) {
+		$error = check_multisite( );
+		if ( is_wp_error( $error ) ) {
+			return $error;
+		}
 		$error = $this->check_extensions( );
 		if ( is_wp_error( $error ) ) {
 			return $error;
@@ -92,7 +96,7 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 			$captcha->make_tmp_dir( );
 		}
 		$result = wp_remote_get( SITEGUARD_URL_PATH . 'really-simple-captcha/tmp/dummy.png' );
-		if ( ! is_wp_error( $result ) && $result['response']['code'] === 200 ) {
+		if ( ! is_wp_error( $result ) && 200 === $result['response']['code'] ) {
 			return true;
 		}
 		$message  = esc_html__( 'In order to enable this function, it is necessary to specify Limit to AllowOverride in httpd.conf.', 'siteguard' );
@@ -129,7 +133,11 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		$config->set( 'captcha_comment',    $mode );
 		$config->set( 'captcha_lostpasswd', $mode );
 		$config->set( 'captcha_registuser', $mode );
-		$config->set( 'same_login_error',   '1' );
+		if ( true === check_multisite( ) ) {
+			$config->set( 'same_login_error',   '1' );
+		} else {
+			$config->set( 'same_login_error',   '0' );
+		}
 		$config->update( );
 	}
 	function get_captcha( ) {

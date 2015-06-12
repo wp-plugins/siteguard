@@ -138,6 +138,11 @@ msgid ""
 msgstr ""
 "ドキュメント、FAQ、その他の情報は "
 
+msgid ""
+"You can find docs about this function on "
+msgstr ""
+"この機能の操作説明は "
+
 #: admin/siteguard-menu-dashboard.php:27
 msgid "."
 msgstr " にあります。"
@@ -736,10 +741,45 @@ msgid ""
 msgstr ""
 "wp-cron.phpにアクセスできない問題を解決してください。アクセス制御が関係している可能性があります。"
 
+msgid ""
+"It does not support the multisite function of WordPress."
+msgstr ""
+"WordPressのマルチサイト機能には、対応していません。"
+
 #. Plugin URI of the plugin/theme
 #: admin/siteguard-menu-dashboard.php
 msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index_en.html"
 msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/index.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/admin_filter_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/admin_filter.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/rename_login_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/rename_login.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/captcha_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/captcha.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/same_error_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/same_error.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/login_lock_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/login_lock.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/login_alert_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/login_alert.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/fail_once_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/fail_once.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/pingback_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/pingback.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/updates_notify_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/updates_notify.html"
+
+msgid "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/waf_tuning_support_en.html"
+msgstr "http://www.jp-secure.com/cont/products/siteguard_wp_plugin/waf_tuning_support.html"
 
 #. Description of the plugin/theme
 msgid ""

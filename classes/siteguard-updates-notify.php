@@ -28,6 +28,10 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 		}
 	}
 	public function check_requirements( ) {
+		$error = check_multisite( );
+		if ( is_wp_error( $error ) ) {
+			return $error;
+		}
 		$error = self::check_disable_wp_cron( );
 		if ( is_wp_error( $error ) ) {
 			return $error;
@@ -48,7 +52,7 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 	}
 	static function check_wp_cron_access( ) {
 		$result = wp_remote_post( site_url( '/wp-cron.php' ) );
-		if ( ! is_wp_error( $result ) && $result['response']['code'] === 200 ) {
+		if ( ! is_wp_error( $result ) && 200 === $result['response']['code'] ) {
 			return true;
 		}
 		$message  = esc_html__( 'Please solve the problem that can not be accessed wp-cron.php. Might be access control.', 'siteguard' );
@@ -77,14 +81,12 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 		}
 		if ( '0' != $config->get( 'notify_plugins' ) ) { // are we to check for plugin updates?
 			$plugins_updated = self::plugins_update_check( $message, $config->get( 'notify_plugins' ) ); // check for plugin updates
-		}
-		else {
+		} else {
 			$plugins_updated = false; // no plugin updates
 		}
 		if ( '0' != $config->get( 'notify_themes' ) ) { // are we to check for theme updates?
 			$themes_updated = self::themes_update_check( $message, $config->get( 'notify_themes' ) ); // check for theme updates
-		}
-		else {
+		} else {
 			$themes_updated = false; // no theme updates
 		}
 		if ( $core_updated || $plugins_updated || $themes_updated ) { // Did anything come back as need updating?
@@ -111,8 +113,7 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 				$config->set( 'notified', $notified );
 				$config->update( );
 				return true; // we have updates so return true
-			}
-			else {
+			} else {
 				return false; // There are updates but we have already notified in the past.
 			}
 		}
@@ -146,23 +147,20 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 					$message .= "\t" . sprintf( esc_html__( 'Changelog: %s%s', 'siteguard' ), $data->url, 'changelog/' ) . "\n";
 					if ( isset( $info->tested ) && version_compare( $info->tested, $wp_version, '>=' ) ) {
 						$compat = sprintf( esc_html__( 'Compatibility with WordPress %1$s: 100%% (according to its author)' ), $cur_wp_version );
-					}
-					elseif ( isset( $info->compatibility[$wp_version][$data->new_version] ) ) {
-						$compat = $info->compatibility[$wp_version][$data->new_version];
+					} elseif ( isset( $info->compatibility[ $wp_version ][ $data->new_version ] ) ) {
+						$compat = $info->compatibility[ $wp_version ][ $data->new_version ];
 						$compat = sprintf( esc_html__( 'Compatibility with WordPress %1$s: %2$d%% (%3$d "works" votes out of %4$d total)' ), $wp_version, $compat[0], $compat[2], $compat[1] );
-					}
-					else {
+					} else {
 						$compat = sprintf( esc_html__( 'Compatibility with WordPress %1$s: Unknown' ), $wp_version );
 					}
 					$message .= "\t" . sprintf( esc_html__( 'Compatibility: %s', 'siteguard' ), $compat ) . "\n";
-					$notified['plugin'][$key] = $data->new_version; // set plugin version we are notifying about
+					$notified['plugin'][ $key ] = $data->new_version; // set plugin version we are notifying about
 				}
 				$config->set( 'notified', $notified );
 				$config->update( );
 				return true; // we have plugin updates return true
 			}
-		}
-		else {
+		} else {
 			if ( 0 != count( $notified['plugin'] ) ) { // is there any plugin notifications?
 				$notified['plugin'] = array(); // set plugin notifications to empty as all plugins up-to-date
 				$config->set( 'notified', $notified );
@@ -188,14 +186,13 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 				foreach ( $themes_need_update as $key => $data ) { // loop through the themes that need updating
 					$theme_info = wp_get_theme( $key ); // get theme info
 					$message .= "\n" . sprintf( esc_html__( 'Theme: %s is out of date. Please update from version %s to %s', 'siteguard' ), $theme_info['Name'], $theme_info['Version'], $data['new_version'] ) . "\n";
-					$notified['theme'][$key] = $data['new_version']; // set theme version we are notifying about
+					$notified['theme'][ $key ] = $data['new_version']; // set theme version we are notifying about
 				}
 				$config->set( 'notified', $notified );
 				$config->update( );
 				return true; // we have theme updates return true
 			}
-		}
-		else {
+		} else {
 			if ( 0 != count( $notified['theme'] ) ) { // is there any theme notifications?
 				$notified['theme'] = array(); // set theme notifications to empty as all themes up-to-date
 				$config->set( 'notified', $notified );
@@ -209,10 +206,10 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 		global $config;
 		$notified = $config->get( 'notified' );
 		if ( is_array( $plugins_need_update ) ) {
-			foreach ( $plugins_need_update as $key => $data ) { // loop through plugins that need update
-				if ( isset( $notified['plugin'][$key] ) ) { // has this plugin been notified before?
-					if ( $data->new_version == $notified['plugin'][$key] ) { // does this plugin version match that of the one that's been notified?
-						unset( $plugins_need_update[$key] ); // don't notify this plugin as has already been notified
+			foreach ( $plugins_need_update as $key => $data ) {   // loop through plugins that need update
+				if ( isset( $notified['plugin'][ $key ] ) ) { // has this plugin been notified before?
+					if ( $data->new_version == $notified['plugin'][ $key ] ) { // does this plugin version match that of the one that's been notified?
+						unset( $plugins_need_update[ $key ] ); // don't notify this plugin as has already been notified
 					}
 				}
 			}
@@ -224,10 +221,10 @@ class SiteGuard_UpdatesNotify extends SiteGuard_Base {
 		global $config;
 		$notified = $config->get( 'notified' );
 		if ( is_array( $themes_need_update ) ) {
-			foreach ( $themes_need_update as $key => $data ) { // loop through themes that need update
-				if ( isset( $notified['theme'][$key] ) ) { // has this theme been notified before?
-					if ( $data['new_version'] == $notified['theme'][$key] ) { // does this theme version match that of the one that's been notified?
-						unset( $themes_need_update[$key] ); // don't notify this theme as has already been notified
+			foreach ( $themes_need_update as $key => $data ) {   // loop through themes that need update
+				if ( isset( $notified['theme'][ $key ] ) ) { // has this theme been notified before?
+					if ( $data['new_version'] == $notified['theme'][ $key ] ) { // does this theme version match that of the one that's been notified?
+						unset( $themes_need_update[ $key ] ); // don't notify this theme as has already been notified
 					}
 				}
 			}

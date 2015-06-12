@@ -6,7 +6,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 class SiteGuard_WAF_Exclude_Rule_Table extends WP_List_Table {
 
-	function __construct(){
+	function __construct() {
 		global $status, $page;
 
 		//Set parent defaults
@@ -85,11 +85,11 @@ class SiteGuard_WAF_Exclude_Rule_Table extends WP_List_Table {
 		return;
 	}
 
-	function usort_reorder( $a, $b ){
+	function usort_reorder( $a, $b ) {
 		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'sig'; //If no sort, default to filename
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; //If no order, default to asc
 		$result = strcmp( $a[ $orderby ], $b[ $orderby ] ); //Determine sort order
-		return ( $order === 'asc' ) ? $result : -$result; //Send final sort direction to usort
+		return ( 'asc' === $order ) ? $result : -$result; //Send final sort direction to usort
 	}
 
 	function prepare_items( ) {
@@ -111,8 +111,10 @@ class SiteGuard_WAF_Exclude_Rule_Table extends WP_List_Table {
 		$current_page = $this->get_pagenum( );
 
 		if ( $total_items > 0 ) {
-			usort( $data, array( $this, 'usort_reorder' ) );
-			$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+			if ( is_array( $data ) ) {
+				usort( $data, array( $this, 'usort_reorder' ) );
+				$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+			}
 		}
 
 		$this->items = $data;
@@ -120,7 +122,7 @@ class SiteGuard_WAF_Exclude_Rule_Table extends WP_List_Table {
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,                     //WE have to calculate the total number of items
 			'per_page'    => $per_page,                        //WE have to determine how many items to show on a page
-			'total_pages' => ceil( $total_items / $per_page )  //WE have to calculate the total number of pages
+			'total_pages' => ceil( $total_items / $per_page ), //WE have to calculate the total number of pages
 		) );
 	}
 }

@@ -21,7 +21,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 	function init( ) {
 		global $config;
 		$config->set( 'renamelogin_path', 'login_' . sprintf( '%05d', mt_rand( 1, 99999 ) ) );
-		if ( $this->check_module( 'rewrite' ) && null == $this->get_active_incompatible_plugin( ) ) {
+		if ( $this->check_module( 'rewrite' ) && null == $this->get_active_incompatible_plugin( ) && true === check_multisite( ) ) {
 			$config->set( 'renamelogin_enable', '1' );
 			$config->update( );
 			$this->feature_on( );

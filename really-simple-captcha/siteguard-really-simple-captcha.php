@@ -188,7 +188,7 @@ class SiteGuardReallySimpleCaptcha extends SiteGuard_Base {
 
 			$gd_info = gd_info( );
 			for ( $i = 0; $i < mb_strlen( $word ); $i++ ) {
-				$font = $this->fonts[array_rand( $this->fonts )];
+				$font = $this->fonts[ array_rand( $this->fonts ) ];
 				$font = $this->normalize_path( $font );
 				if ( $gd_info['JIS-mapped Japanese Font Support'] ) {
 					$char = mb_convert_encoding( mb_substr( $word, $i, 1 ), 'SJIS', 'UTF-8' );

@@ -14,7 +14,14 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 		$opt_val_rename_login_path = $config->get( $opt_name_rename_login_path );
 		if ( isset( $_POST['update'] ) && check_admin_referer( 'siteguard-menu-rename-login-submit' ) ) {
 			$error = false;
-			if ( '1' == $_POST[ $opt_name_feature ] && false == $this->check_module( 'rewrite' ) ) {
+			$errors = check_multisite( );
+			if ( is_wp_error( $errors ) ) {
+				echo '<div class="error settings-error"><p><strong>';
+				esc_html_e( $errors->get_error_message( ), 'siteguard' );
+				echo '</strong></p></div>';
+				$error = true;
+			}
+			if ( false == $error && '1' == $_POST[ $opt_name_feature ] && false == $this->check_module( 'rewrite' ) ) {
 				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'To use this function, “mod_rewrite” should be loaded on Apache.', 'siteguard' );
 				echo '</strong></p></div>';
@@ -24,13 +31,13 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 				$rename_login->feature_off( );
 				$opt_val_feature = '0';
 			}
-			if ( false == $this->is_switch_value( $_POST[ $opt_name_feature ] ) ) {
+			if ( false == $error && false == $this->is_switch_value( $_POST[ $opt_name_feature ] ) ) {
 				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'ERROR: Invalid input value.', 'siteguard' );
 				echo '</strong></p></div>';
 				$error = true;
 			}
-			if ( '1' == $_POST[ $opt_name_feature ] ) {
+			if ( false == $error && '1' == $_POST[ $opt_name_feature ] ) {
 				$incompatible_plugin = $rename_login->get_active_incompatible_plugin( );
 				if ( null != $incompatible_plugin ) {
 					echo '<div class="error settings-error"><p><strong>';
@@ -44,14 +51,14 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 					$opt_val_rename_login_path = stripslashes( $_POST[ $opt_name_rename_login_path ] );
 				}
 			}
-			if ( 1 != preg_match( '/^[a-zA-Z0-9_-]+$/', $_POST[ $opt_name_rename_login_path ] ) ) {
+			if ( false == $error && 1 != preg_match( '/^[a-zA-Z0-9_-]+$/', $_POST[ $opt_name_rename_login_path ] ) ) {
 				echo '<div class="error settings-error"><p><strong>';
 				esc_html_e( 'It is only an alphanumeric character, a hyphen, and an underbar that can be used for New Login Path.', 'siteguard' );
 				echo '</strong></p></div>';
 				$opt_val_rename_login_path = stripslashes( $_POST[ $opt_name_rename_login_path ] );
 				$error = true;
 			}
-			if ( 1 == preg_match( '/^(wp-admin|wp-login$|login$)/', $_POST[ $opt_name_rename_login_path ], $matches ) ) {
+			if ( false == $error && 1 == preg_match( '/^(wp-admin|wp-login$|login$)/', $_POST[ $opt_name_rename_login_path ], $matches ) ) {
 				echo '<div class="error settings-error"><p><strong>';
 				echo esc_html( $matches[0] ) . esc_html__( ' can not be used for New Login Path.', 'siteguard' );
 				echo '</strong></p></div>';
@@ -79,12 +86,19 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 		echo '<div class="wrap">';
 		echo '<img src="' . SITEGUARD_URL_PATH . 'images/sg_wp_plugin_logo_40.png" alt="SiteGuard Logo" />';
 		echo '<h2>' . esc_html__( 'Rename Login', 'siteguard' ) . '</h2>';
+		echo '<div class="siteguard-description">'
+		. esc_html__( 'You can find docs about this function on ', 'siteguard' )
+		. '<a href="' . esc_html__( 'http://www.jp-secure.com/cont/products/siteguard_wp_plugin/rename_login_en.html', 'siteguard' ) 
+		. '" target="_blank">' 
+		. esc_html__( 'here', 'siteguard' ) 
+		. '</a>' 
+		. esc_html__( '.', 'siteguard' ) 
+		. '</div>';
 		?>
 		<form name="form1" method="post" action="">
 		<table class="form-table">
 		<tr>
-		<th scope="row"><?php esc_html_e( 'Enable/Disable', 'siteguard' ) ?></th>
-		<td>
+		<th scope="row" colspan="2">
 			<ul class="siteguard-radios">
 			<li>
 			<input type="radio" name="<?php echo $opt_name_feature ?>" id="<?php echo $opt_name_feature.'_on' ?>" value="1" <?php echo ( '1' == $opt_val_feature ? 'checked' : '') ?> >
@@ -95,11 +109,17 @@ class SiteGuard_Menu_Rename_Login extends SiteGuard_Base {
 			</li>
 			</ul>
 			<?php
+			$error = check_multisite( );
+			if ( is_wp_error( $error ) ) {
+				echo '<p class="description">';
+				echo $error->get_error_message( );
+				echo '</p>';
+			}
 			echo '<p class="description">';
 			esc_html_e( 'To use this function, “mod_rewrite” should be loaded on Apache.', 'siteguard' );
 			echo '</p>';
 			?>
-		</td>
+		</th>
 		</tr><tr>
 		<th scope="row"><label for="<?php echo $opt_name_rename_login_path ?>"><?php esc_html_e( 'New Login Path', 'siteguard' ); ?></label></th>
 		<td>

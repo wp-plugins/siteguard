@@ -9,7 +9,11 @@ class SiteGuard_LoginAlert extends SiteGuard_Base {
 	}
 	function init( ) {
 		global $config;
-		$config->set( 'loginalert_enable',  '1' );
+		if ( true === check_multisite( ) ) {
+			$config->set( 'loginalert_enable',  '1' );
+		} else {
+			$config->set( 'loginalert_enable',  '0' );
+		}
 		$config->set( 'loginalert_admin_only',  '1' );
 		$config->set( 'loginalert_subject', __( 'New login at %SITENAME%', 'siteguard' ) );
 		$config->set( 'loginalert_body',    __( "%USERNAME% logged in at %DATE% %TIME%\n\n== Login information ==\nIP Address: %IPADDRESS%\nReferer: %REFERER%\nUser-Agent: %USERAGENT%\n\n--\nSiteGuard WP Plugin", 'siteguard' ) );
@@ -24,7 +28,7 @@ class SiteGuard_LoginAlert extends SiteGuard_Base {
 				date( 'H:i:s', current_time( 'timestamp' ) ),
 				isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '-',
 				isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '-',
-				isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '-'
+				isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '-',
 			);
 		return str_replace( $search, $replace, $string );
 	}
