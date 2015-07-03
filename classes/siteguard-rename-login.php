@@ -57,7 +57,7 @@ class SiteGuard_RenameLogin extends SiteGuard_Base {
 		} else {
 			$link = '';
 		}
-		if ( false !== strpos( $link, 'wp-login.php' ) ) {
+		if ( false !== strpos( $link, 'wp-login' ) ) {
 			$referer = wp_get_referer( );
 			if ( false === strpos( $referer, $new_login_page ) ) {
 				$this->set_404( );
