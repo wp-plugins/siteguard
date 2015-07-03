@@ -213,6 +213,9 @@ class SiteGuard_CAPTCHA extends SiteGuard_Base {
 		return $new_errors;
 	}
 	function handler_process_comment_post( $comment ) {
+		if ( is_admin() ) {
+			return $comment;
+		}
 		if ( array_key_exists( 'siteguard_captcha', $_POST ) &&  array_key_exists( 'siteguard_captcha_prefix', $_POST ) ) {
 			if ( ! empty( $_POST['siteguard_captcha'] ) ) {
 				if ( $this->captcha->check( $_POST['siteguard_captcha_prefix'], $_POST['siteguard_captcha'] ) ) {
